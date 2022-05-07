@@ -4,6 +4,7 @@
 Pacman::Pacman() : GameObject(
     GameObject::Pacman, QPixmap(":/game_objects/pacman/heppy.png"))
 {
+
     dir = Stop;
     next_dir = Stop;
     anim_index = 2;

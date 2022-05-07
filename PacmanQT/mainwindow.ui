@@ -139,7 +139,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Boss</string>
+     <string>PacMan!</string>
     </property>
    </widget>
    <zorder>graphicsView</zorder>
