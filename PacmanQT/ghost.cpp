@@ -14,16 +14,15 @@ Ghost::Ghost(int comp) : GameObject( GameObject::Ghost, QPixmap())
     switch (comp) { // [Amazon, Costco, Target, IKEA]
     case 0:
         anim[Right].push_back(QPixmap(":/game_objects/ghosts/amazon.png"));
-
         break;
     case 1:
-        anim[Right].push_back(QPixmap(":/game_objects/ghosts/amazon.png"));
+        anim[Right].push_back(QPixmap(":/game_objects/ghosts/costco.png"));
         break;
     case 2:
-        anim[Right].push_back(QPixmap(":/game_objects/ghosts/amazon.png"));
+        anim[Right].push_back(QPixmap(":/game_objects/ghosts/actuallyTarget.png"));
         break;
     case 3:
-        anim[Right].push_back(QPixmap(":/game_objects/ghosts/amazon.png"));
+        anim[Right].push_back(QPixmap(":/game_objects/ghosts/realikea.png"));
         break;
     }
 

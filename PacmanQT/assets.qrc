@@ -1,7 +1,5 @@
 <RCC>
-    <qresource prefix="/game_objects">
-        <file>amazon.png</file>
-    </qresource>
+    <qresource prefix="/game_objects"/>
     <qresource prefix="/game_objects/ghosts">
         <file>bl1.png</file>
         <file>bl2.png</file>
@@ -40,6 +38,11 @@
         <file>yellowup2.png</file>
         <file>bl1_copy.png</file>
         <file>amazon.png</file>
+        <file>notCostco.png</file>
+        <file>costco.png</file>
+        <file>actuallyTarget.png</file>
+        <file>maybeikea.png</file>
+        <file>realikea.png</file>
     </qresource>
     <qresource prefix="/game_objects/map_objects">
         <file>versus.txt</file>
