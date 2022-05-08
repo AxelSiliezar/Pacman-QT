@@ -10,7 +10,7 @@
 #include "game.h"
 #include <QDesktopServices>
 #include <QUrl>
-
+#include <QMediaPlayer>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -24,7 +24,8 @@ public:
     ~MainWindow();
     void initLabels();
     void keyPressEvent(QKeyEvent*) override;
-
+    void PlayMusic();
+    void HideLabels();
 private slots:
 
     void on_onePlayer_clicked();
@@ -37,7 +38,7 @@ private slots:
 
     void on_levelThree_clicked();
 
-    void beginGame(int);
+
 
     void on_takeBreak_clicked();
 

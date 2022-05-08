@@ -58,29 +58,15 @@
         <file>level4.txt</file>
         <file>level5.txt</file>
         <file>yellow.png</file>
+        <file>neonWall.png</file>
     </qresource>
     <qresource prefix="/game_objects/pacman">
-        <file>a1.png</file>
-        <file>a2.png</file>
-        <file>a3.png</file>
-        <file>a4.png</file>
-        <file>a5.png</file>
-        <file>a6.png</file>
-        <file>b2.png</file>
-        <file>b3.png</file>
-        <file>b4.png</file>
-        <file>b5.png</file>
-        <file>b6.png</file>
-        <file>c2.png</file>
-        <file>c3.png</file>
-        <file>c4.png</file>
-        <file>c5.png</file>
-        <file>c6.png</file>
-        <file>d2.png</file>
-        <file>d3.png</file>
-        <file>d4.png</file>
-        <file>d5.png</file>
-        <file>d6.png</file>
         <file>heppy.png</file>
+    </qresource>
+    <qresource prefix="/ui">
+        <file>Screen Shot 2022-05-07 at 9.00.44 PM.png</file>
+        <file>Screen_Shot_2022-05-07_at_9.17.15_PM.png</file>
+        <file>Screen_Shot_2022-05-07_at_9.28.44_PM.png</file>
+        <file>pacman.wav</file>
     </qresource>
 </RCC>

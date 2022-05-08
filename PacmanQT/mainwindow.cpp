@@ -1,7 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-
+#include <QAudioOutput>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -12,11 +11,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->setStyleSheet("QGraphicsView {border: none;}");
     ui->graphicsView->setBackgroundBrush(Qt::black);
     ui->graphicsView->setFocusPolicy(Qt::NoFocus);
-
-
 }
 
-
+void MainWindow::PlayMusic(){
+    QMediaPlayer *player = new QMediaPlayer;
+    QAudioOutput * audioOutput = new QAudioOutput;
+    player->setAudioOutput(audioOutput);
+    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
+    player->setSource(QUrl("qrc:/ui/pacman.wav"));
+    audioOutput->setVolume(50);
+    player->play();
+}
 /* Initialize UI */
 void MainWindow::initLabels()
 {
@@ -47,12 +52,6 @@ void MainWindow::initLabels()
     score_timer->start(25);
     connect(score_timer, SIGNAL(timeout()), this , SLOT(update_score()));
 }
-
-
-/* Update score UI */
-
-
-
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {
     switch (e->key()) {
@@ -87,15 +86,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::beginGame(int mode){
-
-
-}
-
 void MainWindow::on_onePlayer_clicked()
 {
+
+    PlayMusic();
+    HideLabels();
     int map_height = 21, map_width = 33;            // 20x29 game map
-    int x = 50, y = 50;                             // x y in mainwindow
+    int x = 230, y = 50;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
 
@@ -105,10 +102,20 @@ void MainWindow::on_onePlayer_clicked()
     initLabels();
     game->start();
 }
-
+void MainWindow::HideLabels(){
+    ui->onePlayer->setVisible(false);
+    ui->twoPlayer->setVisible(false);
+    ui->levelOne->setVisible(false);
+    ui->levelTwo->setVisible(false);
+    ui->levelThree->setVisible(false);
+    ui->takeBreak->setVisible(false);
+    ui->label->setVisible(false);
+    ui->graphicsView_2->setVisible(false);
+}
 
 void MainWindow::on_twoPlayer_clicked()
 {
+      HideLabels();
     int map_height = 35, map_width = 35;            // 20x29 game map
     int x = 35, y = 35;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
@@ -122,8 +129,10 @@ void MainWindow::on_twoPlayer_clicked()
 
 void MainWindow::on_levelOne_clicked()
 {
+     PlayMusic();
+      HideLabels();
     int map_height = 21, map_width = 33;            // 20x29 game map
-    int x = 50, y = 50;                             // x y in mainwindow
+    int x = 400, y = 200;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
 
@@ -137,6 +146,8 @@ void MainWindow::on_levelOne_clicked()
 
 void MainWindow::on_levelTwo_clicked()
 {
+     PlayMusic();
+      HideLabels();
     int map_height = 17, map_width = 55;            // 20x29 game map
     int x = 18, y = 68;                       // x y in mainwindow
     int w = (map_width * GameObject::Width);
@@ -152,6 +163,8 @@ void MainWindow::on_levelTwo_clicked()
 
 void MainWindow::on_levelThree_clicked()
 {
+     PlayMusic();
+      HideLabels();
     int map_height = 24, map_width = 28;            // 20x29 game map
     int x = 50, y = 50;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
@@ -163,11 +176,6 @@ void MainWindow::on_levelThree_clicked()
     initLabels();
     game->start();
 }
-
-
-
-
-
 void MainWindow::on_takeBreak_clicked()
 {
     QDesktopServices::openUrl(QUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"));
