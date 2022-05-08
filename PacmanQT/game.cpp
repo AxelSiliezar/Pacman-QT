@@ -107,7 +107,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 map[i][j] = pacman;
                 break;
             case 'g':
-                map[i][j] = new GameObject(GameObject::Blank, blankpix);
+                //map[i][j] = new GameObject(GameObject::Blank, blankpix);
                 ghost[ghostCount] = new Ghost(ghostCount);
                 ghost[ghostCount]->game = this;
                 ghost[ghostCount]->setZValue(2);
@@ -118,6 +118,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 ghost[ghostCount]->setPos(tmp_x, tmp_y);
                 addItem(ghost[ghostCount]);
                 ghostCount++;
+                map[i][j] = ghost[ghostCount];
             case 'x':
                 pacmanTwo = new PacmanTwo();
                 pacmanTwo->game = this;
@@ -166,12 +167,11 @@ void Game::start()
     }
 
 
-//    for (int i = 0; i < Ghost::ghostCount; i++) {
-//        ghost_timer[i] = new QTimer(this);
-//        // Managed to pass ghost id to ghost_handler.
-//        connect(ghost_timer[i], &QTimer::timeout, [=](){ghost_handler(i);} );
-//        ghost_timer[i]->start(NORMAL_INTERVAL);
-//    }
+    for (int i = 0; i < Ghost::GhostNum; i++) {
+        ghost_timer[i] = new QTimer(this);
+        connect(ghost_timer[i], &QTimer::timeout, [=](){ghost_handler(i);} );
+        ghost_timer[i]->start(NORMAL_INTERVAL);
+    }
 }
 
 
@@ -233,10 +233,10 @@ void Game::pacmanTwo_handler()
 
 void Game::ghost_handler(int ghostCountd)
 {
-//    ghost[ghostCountd]->move();
-//    if (stat == Lose) {
-//        stop();
-//    }
+   ghost[ghostCountd]->move();
+    if (stat == Lose) {
+       stop();
+    }
 }
 
 
