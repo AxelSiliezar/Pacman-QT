@@ -28,7 +28,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
 
     /* Initialize map graphics */
     ball_num = eat_num = score = 0;
-    int ghost_i = 0;
+    int ghostCount = 0;
     QPixmap wallpix(":/game_objects/map_objects/wall.png");
     QPixmap redWallpix(":/game_objects/map_objects/redWall.png");
     QPixmap ballpix(":/game_objects/map_objects/dot.png");
@@ -94,6 +94,18 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 addItem(pacman);
                 map[i][j] = pacman;
                 break;
+            case 'g':
+                map[i][j] = new GameObject(GameObject::Blank, blankpix);
+                ghost[ghostCount] = new Ghost(ghostCount);
+                ghost[ghostCount]->game = this;
+                ghost[ghostCount]->setZValue(2);
+                ghost[ghostCount]->release_time = GHOST_RELEASE_TIME[ghostCount];
+                ghost[ghostCount]->_x = j;
+                ghost[ghostCount]->_y = i;
+                ghost[ghostCount]->set_score(GHOST_SCORE);
+                ghost[ghostCount]->setPos(tmp_x, tmp_y);
+                addItem(ghost[ghostCount]);
+                ghostCount++;
             case 'x':
                 pacmanTwo = new PacmanTwo();
                 pacmanTwo->game = this;
@@ -103,7 +115,10 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 map[i][j] = pacmanTwo;
                 break;
 
-            }//add case to create ghosts
+
+            }
+
+            //add case to create ghosts
             if (map[i][j]) {
                 map[i][j]->_x = j;
                 map[i][j]->_y = i;
@@ -139,7 +154,7 @@ void Game::start()
     }
 
 
-//    for (int i = 0; i < Ghost::GhostNum; i++) {
+//    for (int i = 0; i < Ghost::ghostCount; i++) {
 //        ghost_timer[i] = new QTimer(this);
 //        // Managed to pass ghost id to ghost_handler.
 //        connect(ghost_timer[i], &QTimer::timeout, [=](){ghost_handler(i);} );
@@ -157,7 +172,7 @@ void Game::stop()
     }
 
     powerball_flash_timer->stop();
-//    for (int i = 0; i < Ghost::GhostNum; i++) {
+//    for (int i = 0; i < Ghost::ghostCount; i++) {
 //        ghost_timer[i]->stop();
 //    }
 }
@@ -204,9 +219,9 @@ void Game::pacmanTwo_handler()
     }
 }
 
-void Game::ghost_handler(int ghost_id)
+void Game::ghost_handler(int ghostCountd)
 {
-//    ghost[ghost_id]->move();
+//    ghost[ghostCountd]->move();
 //    if (stat == Lose) {
 //        stop();
 //    }
@@ -240,7 +255,7 @@ Game::~Game()
     delete pacman_timer;
     delete pacmanTwo_timer;
     delete powerball_flash_timer;
-//    for (int i = 0; i < Ghost::GhostNum; i++) {
+//    for (int i = 0; i < Ghost::ghostCount; i++) {
 //        delete ghost_timer[i];
 //    }
 }
