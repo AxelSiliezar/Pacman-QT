@@ -165,49 +165,7 @@ void MainWindow::on_levelThree_clicked()
 }
 
 
-void MainWindow::on_levelFour_clicked()
-{
-    int map_height = 20, map_width = 29;            // 20x29 game map
-    int x = 50, y = 50;                             // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
 
-    ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/map.txt", false);
-    ui->graphicsView->setScene(game);
-    initLabels();
-    game->start();
-}
-
-
-void MainWindow::on_levelFive_clicked()
-{
-    int map_height = 20, map_width = 29;            // 20x29 game map
-    int x = 50, y = 50;                             // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
-
-    ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/map.txt", false);
-    ui->graphicsView->setScene(game);
-    initLabels();
-    game->start();
-}
-
-
-void MainWindow::on_boss_clicked()
-{
-    int map_height = 20, map_width = 29;            // 20x29 game map
-    int x = 50, y = 50;                             // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
-
-    ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/map.txt", false);
-    ui->graphicsView->setScene(game);
-    initLabels();
-    game->start();
-}
 
 
 void MainWindow::on_takeBreak_clicked()

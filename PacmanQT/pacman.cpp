@@ -13,29 +13,21 @@ Pacman::Pacman() : GameObject(
 
 void Pacman::moveup()
 {
-
-
     setY(static_cast<int>(y()) - 1);
 }
 
 void Pacman::moveleft()
 {
-
-
     setX(static_cast<int>(x()) - 1);
 }
 
 void Pacman::movedown()
 {
-
-
     setY(static_cast<int>(y()) + 1);
 }
 
 void Pacman::moveright()
 {
-
-
     setX(static_cast<int>(x()) + 1);
 }
 
@@ -62,8 +54,6 @@ void Pacman::eat_ball(int __y, int __x)
         return;
     }
 
-    /* Pacman eat a ball, and
-     * fill the previous block with blank. */
     QPixmap blankpix;
     game->map[_y][_x] = new GameObject(GameObject::Wall, blankpix);
     game->map[__y][__x] = this;
@@ -84,7 +74,7 @@ bool Pacman::overlapable(int i, int j)
 
     switch (game->map[i][j]->get_type()) {
     case Wall:
-        game->stat = Game::Lose;
+//        game->stat = Game::Lose;
     case Gate:
         return false;
     default:
@@ -108,8 +98,6 @@ void Pacman::move()
         if (y_remainder == 0) {
 
             eat_ball(__y, __x);
-
-
             _x = __x;
             _y = __y;
 

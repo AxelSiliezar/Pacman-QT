@@ -102,45 +102,6 @@
      <string>Level 3</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="levelFour">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>360</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Level 4</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="levelFive">
-    <property name="geometry">
-     <rect>
-      <x>840</x>
-      <y>360</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Level 5</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="boss">
-    <property name="geometry">
-     <rect>
-      <x>950</x>
-      <y>360</y>
-      <width>100</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PacMan!</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="takeBreak">
     <property name="geometry">
      <rect>
@@ -161,9 +122,6 @@
    <zorder>levelOne</zorder>
    <zorder>levelTwo</zorder>
    <zorder>levelThree</zorder>
-   <zorder>levelFour</zorder>
-   <zorder>levelFive</zorder>
-   <zorder>boss</zorder>
    <zorder>takeBreak</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
