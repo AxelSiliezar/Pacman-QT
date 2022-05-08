@@ -2,7 +2,7 @@
 #define W (GameObject::Width)
 
 Pacman::Pacman() : GameObject(
-    GameObject::Pacman, QPixmap(":/game_objects/pacman/a3.png"))
+    GameObject::Pacman, QPixmap(":/game_objects/pacman/heppy.png"))
 {
 
     dir = Stop;
@@ -55,7 +55,11 @@ void Pacman::eat_ball(int __y, int __x)
     }
 
     QPixmap blankpix;
-    game->map[_y][_x] = new GameObject(GameObject::Wall, blankpix);
+    if(game->versus){
+        game->map[_y][_x] = new GameObject(GameObject::Wall, blankpix);
+    }else{
+        game->map[_y][_x] = new GameObject(GameObject::Blank, blankpix);
+    }
     game->map[__y][__x] = this;
     delete obj;
 
@@ -74,7 +78,9 @@ bool Pacman::overlapable(int i, int j)
 
     switch (game->map[i][j]->get_type()) {
     case Wall:
-//        game->stat = Game::Lose;
+        if(game->versus){
+           game->stop();
+        }
     case Gate:
         return false;
     default:
