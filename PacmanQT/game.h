@@ -41,6 +41,8 @@ public:
     Pacman *pacman;
     PacmanTwo *pacmanTwo;           // pointer of pacman
       // pointers of ghosts
+    Ghost *ghost[Ghost::GhostNum];  // pointers of ghosts
+
     QVector<GameObject*> powerball; // pointers of powerball
     GameStatus stat;
     bool versus;
@@ -66,6 +68,7 @@ private:
     QTimer *pacman_timer;
     QTimer *pacmanTwo_timer;
     QTimer *powerball_flash_timer;
+    QTimer *ghost_timer[Ghost::GhostNum];
     bool flash_tick;
 
 };

@@ -103,7 +103,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 map[i][j] = pacmanTwo;
                 break;
 
-            }
+            }//add case to create ghosts
             if (map[i][j]) {
                 map[i][j]->_x = j;
                 map[i][j]->_y = i;

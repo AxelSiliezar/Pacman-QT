@@ -103,17 +103,9 @@ public:
     friend class Pacman;
 
 private:
-    void moveup();
-    void movedown();
-    void moveleft();
-    void moveright();
 
-    void setdir_randomly();
-    void go_out_cage();
     void chase_pacman();
-    void dodge_pacman();
     void go_to_cage();
-    QPair<int, int> (*chase_strategy)(Ghost*);  // function pointer of a chasing stragety
     bool overlapable(int, int);                 // check if ghost can go to map[i][j]
 
     Color color;
@@ -128,12 +120,5 @@ private:
 };
 
 
-/* Chasing strategies of ghosts,
- * which is represented as a QPair of vector
- * from the ghost to the pacman. */
-QPair<int, int> strategy1(Ghost*);
-QPair<int, int> strategy2(Ghost*);
-QPair<int, int> strategy3(Ghost*);
-QPair<int, int> strategy4(Ghost*);
 
 #endif // GAMEOBJECT_H
