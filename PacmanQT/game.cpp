@@ -118,7 +118,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 ghost[ghostCount]->setPos(tmp_x, tmp_y);
                 addItem(ghost[ghostCount]);
                 ghostCount++;
-                map[i][j] = ghost[ghostCount];
+               // map[i][j] = ghost[ghostCount];
             case 'x':
                 pacmanTwo = new PacmanTwo();
                 pacmanTwo->game = this;
@@ -231,9 +231,9 @@ void Game::pacmanTwo_handler()
     }
 }
 
-void Game::ghost_handler(int ghostCountd)
+void Game::ghost_handler(int ghostCount)
 {
-   ghost[ghostCountd]->move();
+   ghost[ghostCount]->move();
     if (stat == Lose) {
        stop();
     }
@@ -267,7 +267,7 @@ Game::~Game()
     delete pacman_timer;
     delete pacmanTwo_timer;
     delete powerball_flash_timer;
-//    for (int i = 0; i < Ghost::ghostCount; i++) {
-//        delete ghost_timer[i];
-//    }
+    for (int i = 0; i < Ghost::GhostNum; i++) {
+        delete ghost_timer[i];
+    }
 }

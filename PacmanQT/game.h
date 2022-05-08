@@ -28,6 +28,8 @@ class Game : public QGraphicsScene
 
 public:
     enum GameStatus {Playing, Win, Lose, Pause};
+    int geo_x, geo_y;
+    int map_height, map_width;      // game map (20 x 29 in this app)
     Game(int, int, int, int, QString,bool);
     ~Game();
     void start();
@@ -59,10 +61,10 @@ private slots:
     void ghost_handler(int);
 
 private:
-    int map_height, map_width;      // game map (20 x 29 in this app)
+    //int map_height, map_width;      // game map (20 x 29 in this app)
     int map_size;                   // map_width * map_height
     int ball_num, eat_num, score;
-    int geo_x, geo_y;               // geometric coordinate
+                   // geometric coordinate
 
 
     QTimer *pacman_timer;

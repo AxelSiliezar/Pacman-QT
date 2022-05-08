@@ -88,7 +88,6 @@ private:
 class Ghost : public GameObject
 {
 public:
-    enum Color {Red = 0, Yellow = 1, Pink = 2, Green = 3};
     enum Status {Normal, Panic, Running};
     const static int GhostNum = 4;
     Game *game;                 // the pacman game object
@@ -105,7 +104,6 @@ private:
     void go_to_cage();
     bool overlapable(int, int);                 // check if ghost can go to map[i][j]
 
-    Color color;
     Status status;
     QVector<QPixmap> anim[4];                   // animations
     QVector<QPixmap> panic_anim;
