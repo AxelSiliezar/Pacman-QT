@@ -1,4 +1,6 @@
 #include "game.h"
+#include<QDebug>
+
 #include <QRandomGenerator>
 
 #define W (GameObject::Width)
@@ -6,28 +8,54 @@
 
 Ghost::Ghost(int comp) : GameObject( GameObject::Ghost, QPixmap())
 {
-    anim_index = 0;
     is_released = false;
-    dir = Dir(QRandomGenerator::global()->generate() % 4);
     status = Normal;
+
+    //qInfo() << ("comp recievd was: %d", comp);
+    qDebug ("comp %d : ",comp);
+
 
     switch (comp) { // [Amazon, Costco, Target, IKEA]
     case 0:
         anim[Right].push_back(QPixmap(":/game_objects/ghosts/amazon.png"));
+        setPixmap(QPixmap(":/game_objects/ghosts/amazon.png"));
+        qInfo() << "Loaded & set amazon";
+        //0 = loaded, 1 = not loaded correctly
+        if(QPixmap(":/game_objects/ghosts/amazon.png").isNull()){
+            qInfo() << "Sike, it's NULL" ;
+        }
+
+
         break;
     case 1:
         anim[Right].push_back(QPixmap(":/game_objects/ghosts/costco.png"));
+        setPixmap(QPixmap(":/game_objects/ghosts/costco.png"));
+        qInfo() << "Loaded & set Costco";
+        if(QPixmap(":/game_objects/ghosts/costco.png").isNull()){
+            qInfo() << "Sike, it's NULL" ;
+        }
         break;
     case 2:
         anim[Right].push_back(QPixmap(":/game_objects/ghosts/actuallyTarget.png"));
+        setPixmap(QPixmap(":/game_objects/ghosts/actuallyTarget.png"));
+        qInfo() << "Loaded & set Target";
+        if(QPixmap(":/game_objects/ghosts/actuallyTarget.png").isNull()){
+            qInfo() << "Sike, it's NULL" ;
+        }
         break;
     case 3:
         anim[Right].push_back(QPixmap(":/game_objects/ghosts/realikea.png"));
+        setPixmap(QPixmap(":/game_objects/ghosts/realikea.png"));
+        qInfo() << "Loaded & set Ikea";
+        if(QPixmap(":/game_objects/ghosts/realikea.png").isNull()){
+            qInfo() << "Sike, it's NULL" ;
+        }
+
+
         break;
     }
 
 
-    setPixmap(anim[Right][0]);
 }
 
 void Ghost::move(){

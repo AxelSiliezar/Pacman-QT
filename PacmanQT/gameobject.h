@@ -95,7 +95,6 @@ public:
 
     Ghost(int);
     void move();
-    Color get_color();
 
     friend class Game;
     friend class Pacman;

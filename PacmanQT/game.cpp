@@ -107,7 +107,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 map[i][j] = pacman;
                 break;
             case 'g':
-                //map[i][j] = new GameObject(GameObject::Blank, blankpix);
+                map[i][j] = new GameObject(GameObject::Blank, blankpix);
                 ghost[ghostCount] = new Ghost(ghostCount);
                 ghost[ghostCount]->game = this;
                 ghost[ghostCount]->setZValue(2);
