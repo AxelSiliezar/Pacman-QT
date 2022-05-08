@@ -13,7 +13,7 @@
 #define BALL_SCORE      10          // score of balls
 #define POWERBALL_SCORE 30          // score of powerballs
 #define GHOST_SCORE     50          // score of ghosts
-#define INTERVAL        1          // move interval of pacman
+#define INTERVAL        10          // move interval of pacman
 #define VERSUSINTERVAL  6
 #define NORMAL_INTERVAL 10          // move interval of normal ghosts
 #define PANNIC_INTERVAL 15          // move interval of pannic ghosts

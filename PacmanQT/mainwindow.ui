@@ -24,7 +24,6 @@
      </rect>
     </property>
     <property name="text">
-     <string>PacMan!</string>
      <string>Versus</string>
     </property>
    </widget>
@@ -142,6 +141,19 @@
      <string>PacMan!</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="takeBreak">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>130</y>
+      <width>141</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Take a Break?</string>
+    </property>
+   </widget>
    <zorder>graphicsView</zorder>
    <zorder>twoPlayer</zorder>
    <zorder>label</zorder>
@@ -152,6 +164,7 @@
    <zorder>levelFour</zorder>
    <zorder>levelFive</zorder>
    <zorder>boss</zorder>
+   <zorder>takeBreak</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

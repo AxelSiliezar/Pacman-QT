@@ -11,6 +11,7 @@ int GHOST_RELEASE_TIME[] = {0, 200, 400, 600};
 Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     : QGraphicsScene(x, y, W * map_w, W * map_h)
 {
+
     geo_x = x;
     geo_y = y;
     stat = Playing;
@@ -31,6 +32,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     int ghostCount = 0;
     QPixmap wallpix(":/game_objects/map_objects/wall.png");
     QPixmap redWallpix(":/game_objects/map_objects/redWall.png");
+    QPixmap yellowWallpix(":/game_objects/map_objects/yellow.png");
     QPixmap ballpix(":/game_objects/map_objects/dot.png");
     QPixmap powerballpix(":/game_objects/map_objects/power_ball.png");
     QPixmap gatepix(":/game_objects/map_objects/gate.png");
@@ -51,6 +53,16 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                    map[i][j] = new GameObject(GameObject::Wall, redWallpix);
                 }else{
                     map[i][j] = new GameObject(GameObject::Wall, wallpix);
+                }
+
+                map[i][j]->setPos(tmp_x, tmp_y);
+                addItem(map[i][j]);
+                break;
+            case 'y':
+                if(versus){
+                   map[i][j] = new GameObject(GameObject::Wall, yellowWallpix);
+                }else{
+                    map[i][j] = new GameObject(GameObject::Wall, yellowWallpix);
                 }
 
                 map[i][j]->setPos(tmp_x, tmp_y);

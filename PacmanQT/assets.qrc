@@ -50,6 +50,7 @@
         <file>level3.txt</file>
         <file>level4.txt</file>
         <file>level5.txt</file>
+        <file>yellow.png</file>
     </qresource>
     <qresource prefix="/game_objects/pacman">
         <file>a1.png</file>
