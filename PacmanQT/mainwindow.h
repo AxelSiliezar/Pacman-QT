@@ -37,12 +37,6 @@ private slots:
 
     void on_levelThree_clicked();
 
-    void on_levelFour_clicked();
-
-    void on_levelFive_clicked();
-
-    void on_boss_clicked();
-
     void beginGame(int);
 
     void on_takeBreak_clicked();
