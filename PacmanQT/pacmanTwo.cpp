@@ -2,93 +2,35 @@
 #define W (GameObject::Width)
 
 PacmanTwo::PacmanTwo() : GameObject(
-    GameObject::PacmanTwo, QPixmap(":/game_objects/pacman/a3.png"))
+    GameObject::PacmanTwo, QPixmap(":/game_objects/pacman/heppy.png"))
 {
     dir = Stop;
     next_dir = Stop;
     anim_index = 2;
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a1.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a2.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a3.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a4.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a5.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a6.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a5.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a4.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a3.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/a2.png"));
-
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/a1.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b2.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b3.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b4.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b5.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b6.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b5.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b4.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b3.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/b2.png"));
-
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/a1.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c2.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c3.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c4.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c5.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c6.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c5.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c4.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c3.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/c2.png"));
-
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/a1.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d2.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d3.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d4.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d5.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d6.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d5.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d4.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d3.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/d2.png"));
 }
 
 void PacmanTwo::moveup()
 {
-    anim_index++;
-    if (anim_index == anim[Up].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Up][anim_index]);
+
+
     setY(static_cast<int>(y()) - 1);
 }
 
 void PacmanTwo::moveleft()
 {
-    anim_index++;
-    if (anim_index == anim[Left].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Left][anim_index]);
+
     setX(static_cast<int>(x()) - 1);
 }
 
 void PacmanTwo::movedown()
 {
-    anim_index++;
-    if (anim_index == anim[Down].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Down][anim_index]);
+
     setY(static_cast<int>(y()) + 1);
 }
 
 void PacmanTwo::moveright()
 {
-    anim_index++;
-    if (anim_index == anim[Right].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Right][anim_index]);
+
     setX(static_cast<int>(x()) + 1);
 }
 
@@ -118,7 +60,12 @@ void PacmanTwo::eat_ball(int __y, int __x)
 
     /* Pacman eat a ball, and
      * fill the previous block with blank. */
-    game->map[_y][_x] = new GameObject(GameObject::Wall, wallpix);
+    QPixmap blankpix;
+    if(game->versus){
+        game->map[_y][_x] = new GameObject(GameObject::Wall, blankpix);
+    }else{
+        game->map[_y][_x] = new GameObject(GameObject::Blank, blankpix);
+    }
     game->map[__y][__x] = this;
 
     delete obj;
@@ -137,6 +84,9 @@ bool PacmanTwo::overlapable(int i, int j)
 
     switch (game->map[i][j]->get_type()) {
     case Wall:
+        if(game->versus){
+           game->stat = Game::Lose;
+        }
     case Gate:
         return false;
     default:

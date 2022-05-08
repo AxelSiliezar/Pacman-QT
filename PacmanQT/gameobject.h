@@ -42,8 +42,6 @@ protected:
     ObjectType type;
     int score;
 };
-
-
 /* Pacman */
 class Pacman : public GameObject
 {
