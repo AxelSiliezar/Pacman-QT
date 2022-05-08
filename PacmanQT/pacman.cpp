@@ -2,94 +2,40 @@
 #define W (GameObject::Width)
 
 Pacman::Pacman() : GameObject(
-    GameObject::Pacman, QPixmap(":/game_objects/pacman/heppy.png"))
+    GameObject::Pacman, QPixmap(":/game_objects/pacman/pacman.png"))
 {
 
     dir = Stop;
     next_dir = Stop;
     anim_index = 2;
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Right].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
 
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Up].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Left].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
-    anim[Down].push_back(QPixmap(":/game_objects/pacman/heppy.png"));
 }
 
 void Pacman::moveup()
 {
-    anim_index++;
-    if (anim_index == anim[Up].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Up][anim_index]);
+
+
     setY(static_cast<int>(y()) - 1);
 }
 
 void Pacman::moveleft()
 {
-    anim_index++;
-    if (anim_index == anim[Left].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Left][anim_index]);
+
+
     setX(static_cast<int>(x()) - 1);
 }
 
 void Pacman::movedown()
 {
-    anim_index++;
-    if (anim_index == anim[Down].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Down][anim_index]);
+
+
     setY(static_cast<int>(y()) + 1);
 }
 
 void Pacman::moveright()
 {
-    anim_index++;
-    if (anim_index == anim[Right].size()) {
-        anim_index = 0;
-    }
-    setPixmap(anim[Right][anim_index]);
+
+
     setX(static_cast<int>(x()) + 1);
 }
 

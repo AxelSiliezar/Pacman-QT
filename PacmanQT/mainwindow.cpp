@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -93,7 +94,7 @@ void MainWindow::beginGame(int mode){
 
 void MainWindow::on_onePlayer_clicked()
 {
-    int map_height = 20, map_width = 29;            // 20x29 game map
+    int map_height = 21, map_width = 33;            // 20x29 game map
     int x = 50, y = 50;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
@@ -121,7 +122,7 @@ void MainWindow::on_twoPlayer_clicked()
 
 void MainWindow::on_levelOne_clicked()
 {
-    int map_height = 20, map_width = 29;            // 20x29 game map
+    int map_height = 21, map_width = 33;            // 20x29 game map
     int x = 50, y = 50;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
@@ -136,7 +137,7 @@ void MainWindow::on_levelOne_clicked()
 
 void MainWindow::on_levelTwo_clicked()
 {
-    int map_height = 17, map_width = 61;            // 20x29 game map
+    int map_height = 17, map_width = 55;            // 20x29 game map
     int x = 18, y = 68;                       // x y in mainwindow
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
@@ -151,13 +152,13 @@ void MainWindow::on_levelTwo_clicked()
 
 void MainWindow::on_levelThree_clicked()
 {
-    int map_height = 20, map_width = 29;            // 20x29 game map
+    int map_height = 24, map_width = 28;            // 20x29 game map
     int x = 50, y = 50;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
 
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/map.txt", false);
+    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level3.txt", false);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
@@ -206,5 +207,11 @@ void MainWindow::on_boss_clicked()
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
+}
+
+
+void MainWindow::on_takeBreak_clicked()
+{
+    QDesktopServices::openUrl(QUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"));
 }
 

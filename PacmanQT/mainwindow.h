@@ -8,6 +8,8 @@
 #include <QKeyEvent>
 #include <QTimer>
 #include "game.h"
+#include <QDesktopServices>
+#include <QUrl>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -42,6 +44,8 @@ private slots:
     void on_boss_clicked();
 
     void beginGame(int);
+
+    void on_takeBreak_clicked();
 
 private:
     Ui::MainWindow *ui;
