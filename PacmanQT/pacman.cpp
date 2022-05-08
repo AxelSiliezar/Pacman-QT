@@ -2,7 +2,7 @@
 #define W (GameObject::Width)
 
 Pacman::Pacman() : GameObject(
-    GameObject::Pacman, QPixmap(":/game_objects/pacman/pacman.png"))
+    GameObject::Pacman, QPixmap(":/game_objects/pacman/a3.png"))
 {
 
     dir = Stop;

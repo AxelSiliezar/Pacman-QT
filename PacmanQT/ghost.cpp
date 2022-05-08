@@ -67,11 +67,11 @@ void Ghost::move(){
                 game->stat = Game::Lose;
             } else if (status == Panic) {
                 setPixmap(QPixmap(":/rsc2/run.png"));
-                game->score += score;
+               // game->score += score;
                 status = Running;
                 release_time = 200;
                 is_released = false;
-                game->ghost_timer[color]->setInterval(RUNNING_INTERVAL);
+                //game->ghost_timer[color]->setInterval(RUNNING_INTERVAL);
             }
         }
 
