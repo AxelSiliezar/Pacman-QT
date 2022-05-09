@@ -231,14 +231,44 @@ void Ghost::move(){
     int x_remainder = (gh_x - game->geo_x) % W;   // remainder x pixel to fit a block
     int y_remainder = (gh_y - game->geo_y) % W;   // remainder y pixel to fit a block
 
+    if (x_remainder == 0 && y_remainder == 0) {
+        // update ghost's coordinate in map
+        _x = __x;
+        _y = __y;
+    }
+
     qDebug ("pacman x, y : %d %d ",game->pacman->get_x(),game->pacman->get_y() );
     qDebug ("ghost x and y: %d %d ", __x,__y);
+    qDebug ("map endpoints : %d %d", game->geo_x, game->geo_y);
     qDebug ("distance to pacman : %d %d ",game->pacman->get_x()-__x,game->pacman->get_y()-__y);
+    /*
+    int path = rand() % 4 + 1; //Generate a direction (UP,DOWN,LEFT,RIGHT) [1,2,3,4]
+    qDebug("path randomly chosen is %d!", path);
+
+    if(path == 1 && overlapable(__y-1, __x)){
+        //check if up is overlapable, move up if it is the case
+        moveup();
+
+    }
+    if (path == 2 && overlapable(__y+1, __x)){
+        movedown();
+
+    }
+    if(path == 3 && overlapable(__y, __x - 1)){
+        moveleft();
+
+    }
+    if(path == 4 && overlapable(__y, __x - 1)){
+        moveright();
+    }
+    */
+
+
 
     if(game->pacman->get_x() == __x && game->pacman->get_y()==__y){
         //Ghost and Pacman X,Y are equal (collision)
-        qDebug("Game over?");
         if (status == Normal) {
+            qDebug("Game over?");
             game->stat = Game::Lose;
         }
     }
@@ -249,27 +279,33 @@ void Ghost::move(){
             qDebug("go left dawg");
             moveleft();
         }
-        else if(game->pacman->get_x()-__x > 0 && overlapable(_y, _x + 1)){ //in pos x direction (right)
+        if(game->pacman->get_x()-__x > 0 && overlapable(_y, _x + 1)){ //in pos x direction (right)
             qDebug("go right dawg");
             moveright();
         }
 
-        else if(game->pacman->get_y()-__y < 0 && overlapable(_y, _x - 1)){ //in neg y direction (down)
+        if(game->pacman->get_y()-__y < 0 && overlapable(_y+1, _x)){ //in neg y direction (down)
             qDebug("go down dawg!");
             movedown();
         }
-        else if(game->pacman->get_y()-__y > 0 && overlapable(_y, _x + 1)){ //in pos y direction (up)
+        if(game->pacman->get_y()-__y > 0 && overlapable(_y-1, _x)){ //in pos y direction (up)
             qDebug("go up dawg!");
-            moveup();
+            if(__y > 3){
+              moveup();
+
+            }
+
         }
 
     }
     else if(abs(game->pacman->get_x()-__x) > abs(game->pacman->get_y()-__y) && (overlapable(_y + 1, _x) || overlapable(_y - 1, _x))){
-        if(game->pacman->get_y()-__y < 0 && overlapable(_y, _x - 1)){ //in neg y direction (down)
+        if(game->pacman->get_y()-__y < 0 && overlapable(_y+1, _x)){
+
             qDebug("go down dawg");
             movedown();
         }
-        else if(game->pacman->get_y()-__y > 0 && overlapable(_y, _x + 1)){ //in pos y direction (up)
+        else if(game->pacman->get_y()-__y > 0 && overlapable(_y - 1, _x)){ //in pos y direction (up)
+
             qDebug("go up dawg");
             moveup();
         }
@@ -278,12 +314,15 @@ void Ghost::move(){
 
 
 
+
         /* When ghost completely fits a block,
-         * decide whether to change direction. */
+         * decide whether to change direction.*/
         if (x_remainder == 0 && y_remainder == 0) {
             // update ghost's coordinate in map
             _x = __x;
             _y = __y;
+        }
+        /*
             is_released = true;
             if (is_released) {
                 if(overlapable(_y, _x + 1)){//Right is not a wall
@@ -293,6 +332,7 @@ void Ghost::move(){
 
             }
             qDebug() << "Hm?";
+            */
             /*
             switch (dir) {
                 case Stop:
@@ -332,10 +372,10 @@ void Ghost::move(){
                 //game->ghost_timer[color]->setInterval(RUNNING_INTERVAL);
             }
         }
-        }
-
-
-
-
 
 }
+
+
+
+
+
