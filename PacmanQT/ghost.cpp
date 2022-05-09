@@ -79,16 +79,10 @@ void Ghost::moveright()
 
 bool Ghost::overlapable(int i, int j)
 {
-    if (i < 0 || j < 0) {
-        return false;
-    }
-
-    if (i >= game->map_height || j >= game->map_width) {
-        return false;
-    }
 
     switch (game->map[i][j]->get_type()) {
     case Wall:
+        qDebug("Can not cross!");
         return false;
     case Gate:
         if (is_released == false && release_time == 0) {
@@ -237,10 +231,11 @@ void Ghost::move(){
         _y = __y;
     }
 
-    qDebug ("pacman x, y : %d %d ",game->pacman->get_x(),game->pacman->get_y() );
-    qDebug ("ghost x and y: %d %d ", __x,__y);
-    qDebug ("map endpoints : %d %d", game->geo_x, game->geo_y);
-    qDebug ("distance to pacman : %d %d ",game->pacman->get_x()-__x,game->pacman->get_y()-__y);
+    //qDebug ("pacman x, y : %d %d ",game->pacman->get_x(),game->pacman->get_y() );
+    //qDebug ("ghost x and y: %d %d ", __x,__y);
+   // qDebug("game height: %d", game->map_height); height matters when going DOWN
+    //qDebug ("map endpoints : %d %d", game->geo_x, game->geo_y);
+    //qDebug ("distance to pacman : %d %d ",game->pacman->get_x()-__x,game->pacman->get_y()-__y);
     /*
     int path = rand() % 4 + 1; //Generate a direction (UP,DOWN,LEFT,RIGHT) [1,2,3,4]
     qDebug("path randomly chosen is %d!", path);
@@ -263,17 +258,50 @@ void Ghost::move(){
     }
     */
 
-
+    int path = rand() % 2 + 1; //Generate a direction 1 -> GO ONLY UP OR DOWN, 2-> ONLY LEFT OR RIGHT
 
     if(game->pacman->get_x() == __x && game->pacman->get_y()==__y){
         //Ghost and Pacman X,Y are equal (collision)
         if (status == Normal) {
             qDebug("Game over?");
+            qDebug("Coords of collision: %d %d", __x, __y);
             game->stat = Game::Lose;
         }
     }
+    qDebug("path randomly chosen is %d!", path);
+
+    if(path == 1){ //ONLY UP OR DOWN
+        if(game->pacman->get_y()-__y > 0 && overlapable(_y+1, _x)){
+            if(__y <= game->map_height){
+                qDebug("ayo down");
+                //i >= game->map_height
+                movedown();
+            }
+        }
+        else if(game->pacman->get_y()-__y < 0 && overlapable(_y - 1, _x)){ //in pos y direction (up)
 
 
+
+            if(__y >= 1){
+              qDebug("ayo up");
+              moveup();
+            }
+        }
+        else{
+            qDebug("Ghost is in a pipe");
+        }
+    }
+    else if(path == 2){
+        if(game->pacman->get_x()-__x < 0 && overlapable(_y, _x - 1)){ //in neg x direction (left)
+            qDebug("ayo left");
+            moveleft();
+        }
+        else if(game->pacman->get_x()-__x > 0 && overlapable(_y, _x + 1)){ //in pos x direction (right)
+            qDebug("ayo right");
+            moveright();
+        }
+    }
+/*
     if(abs(game->pacman->get_x()-__x) <= abs(game->pacman->get_y()-__y) && (overlapable(_y, _x - 1) || overlapable(_y, _x + 1) )  ){//x direction is closest and not stuck
         if(game->pacman->get_x()-__x < 0 && overlapable(_y, _x - 1)){ //in neg x direction (left)
             qDebug("go left dawg");
@@ -311,7 +339,7 @@ void Ghost::move(){
         }
     }
 
-
+*/
 
 
 
