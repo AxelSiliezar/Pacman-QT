@@ -28,6 +28,8 @@ class Game : public QGraphicsScene
 
 public:
     enum GameStatus {Playing, Win, Lose, Pause};
+    int geo_x, geo_y;
+    int map_height, map_width;      // game map (20 x 29 in this app)
     Game(int, int, int, int, QString,bool);
     ~Game();
     void start();
@@ -41,6 +43,8 @@ public:
     Pacman *pacman;
     PacmanTwo *pacmanTwo;           // pointer of pacman
       // pointers of ghosts
+    Ghost *ghost[Ghost::GhostNum];  // pointers of ghosts
+
     QVector<GameObject*> powerball; // pointers of powerball
     GameStatus stat;
     bool versus;
@@ -57,15 +61,16 @@ private slots:
     void ghost_handler(int);
 
 private:
-    int map_height, map_width;      // game map (20 x 29 in this app)
+    //int map_height, map_width;      // game map (20 x 29 in this app)
     int map_size;                   // map_width * map_height
     int ball_num, eat_num, score;
-    int geo_x, geo_y;               // geometric coordinate
+                   // geometric coordinate
 
 
     QTimer *pacman_timer;
     QTimer *pacmanTwo_timer;
     QTimer *powerball_flash_timer;
+    QTimer *ghost_timer[Ghost::GhostNum];
     bool flash_tick;
 
 };

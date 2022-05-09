@@ -1,5 +1,49 @@
 <RCC>
     <qresource prefix="/game_objects"/>
+    <qresource prefix="/game_objects/ghosts">
+        <file>bl1.png</file>
+        <file>bl2.png</file>
+        <file>greendown1.png</file>
+        <file>greendown2.png</file>
+        <file>greenleft1.png</file>
+        <file>greenleft2.png</file>
+        <file>greenright1.png</file>
+        <file>greenright2.png</file>
+        <file>greenup1.png</file>
+        <file>greenup2.png</file>
+        <file>pinkdown1.png</file>
+        <file>pinkdown2.png</file>
+        <file>pinkleft1.png</file>
+        <file>pinkleft2.png</file>
+        <file>pinkright1.png</file>
+        <file>pinkright2.png</file>
+        <file>pinkup1.png</file>
+        <file>pinkup2.png</file>
+        <file>reddown1.png</file>
+        <file>reddown2.png</file>
+        <file>redleft1.png</file>
+        <file>redleft2.png</file>
+        <file>redright1.png</file>
+        <file>redright2.png</file>
+        <file>redup1.png</file>
+        <file>redup2.png</file>
+        <file>run.png</file>
+        <file>yellowdown1.png</file>
+        <file>yellowdown2.png</file>
+        <file>yellowleft1.png</file>
+        <file>yellowleft2.png</file>
+        <file>yellowright1.png</file>
+        <file>yellowright2.png</file>
+        <file>yellowup1.png</file>
+        <file>yellowup2.png</file>
+        <file>bl1_copy.png</file>
+        <file>amazon.png</file>
+        <file>notCostco.png</file>
+        <file>costco.png</file>
+        <file>actuallyTarget.png</file>
+        <file>maybeikea.png</file>
+        <file>realikea.png</file>
+    </qresource>
     <qresource prefix="/game_objects/map_objects">
         <file>versus.txt</file>
         <file>level1.txt</file>

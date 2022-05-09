@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     game.cpp \
     game_object.cpp \
+    ghost.cpp \
     main.cpp \
     mainwindow.cpp \
     pacman.cpp \
