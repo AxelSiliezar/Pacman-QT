@@ -235,16 +235,44 @@ void Ghost::move(){
     qDebug ("ghost x and y: %d %d ", __x,__y);
     qDebug ("distance to pacman : %d %d ",game->pacman->get_x()-__x,game->pacman->get_y()-__y);
 
-    if(abs(game->pacman->get_x()-__x) <= abs(game->pacman->get_y()-__y) ){//x direction is closest
-        if(game->pacman->get_x()-__x < 0){ //in neg x direction (left)
+    if(game->pacman->get_x() == __x && game->pacman->get_y()==__y){
+        //Ghost and Pacman X,Y are equal (collision)
+        qDebug("Game over?");
+        if (status == Normal) {
+            game->stat = Game::Lose;
+        }
+    }
+
+
+    if(abs(game->pacman->get_x()-__x) <= abs(game->pacman->get_y()-__y) && (overlapable(_y, _x - 1) || overlapable(_y, _x + 1) )  ){//x direction is closest and not stuck
+        if(game->pacman->get_x()-__x < 0 && overlapable(_y, _x - 1)){ //in neg x direction (left)
             qDebug("go left dawg");
             moveleft();
         }
-        if(game->pacman->get_x()-__x > 0){ //in pos x direction (right)
+        else if(game->pacman->get_x()-__x > 0 && overlapable(_y, _x + 1)){ //in pos x direction (right)
             qDebug("go right dawg");
             moveright();
         }
 
+        else if(game->pacman->get_y()-__y < 0 && overlapable(_y, _x - 1)){ //in neg y direction (down)
+            qDebug("go down dawg!");
+            movedown();
+        }
+        else if(game->pacman->get_y()-__y > 0 && overlapable(_y, _x + 1)){ //in pos y direction (up)
+            qDebug("go up dawg!");
+            moveup();
+        }
+
+    }
+    else if(abs(game->pacman->get_x()-__x) > abs(game->pacman->get_y()-__y) && (overlapable(_y + 1, _x) || overlapable(_y - 1, _x))){
+        if(game->pacman->get_y()-__y < 0 && overlapable(_y, _x - 1)){ //in neg y direction (down)
+            qDebug("go down dawg");
+            movedown();
+        }
+        else if(game->pacman->get_y()-__y > 0 && overlapable(_y, _x + 1)){ //in pos y direction (up)
+            qDebug("go up dawg");
+            moveup();
+        }
     }
 
 
@@ -260,8 +288,7 @@ void Ghost::move(){
             if (is_released) {
                 if(overlapable(_y, _x + 1)){//Right is not a wall
                     qDebug() << "Going RIGHT?";
-                    __x = __x+1;
-                    _x == __x;
+
                 }
 
             }
