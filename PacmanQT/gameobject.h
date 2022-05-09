@@ -99,7 +99,10 @@ public:
     friend class Pacman;
 
 private:
-
+    void moveup();
+    void movedown();
+    void moveleft();
+    void moveright();
     void chase_pacman();
     void go_to_cage();
     bool overlapable(int, int);                 // check if ghost can go to map[i][j]

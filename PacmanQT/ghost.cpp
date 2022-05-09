@@ -57,6 +57,26 @@ Ghost::Ghost(int comp) : GameObject( GameObject::Ghost, QPixmap())
     }
 }
 
+void Ghost::moveup()
+{
+    setY(static_cast<int>(y()) - 1);
+}
+
+void Ghost::moveleft()
+{
+    setX(static_cast<int>(x()) - 1);
+}
+
+void Ghost::movedown()
+{
+    setY(static_cast<int>(y()) + 1);
+}
+
+void Ghost::moveright()
+{
+    setX(static_cast<int>(x()) + 1);
+}
+
 bool Ghost::overlapable(int i, int j)
 {
     if (i < 0 || j < 0) {
@@ -104,7 +124,7 @@ void Ghost::chase_pacman()
         okdir[Up] = true;
         oklist.push_back(Up);
     }
-
+    qDebug() << "inside chasing";
     Dir backward_dir;
     switch (dir) {
     case Up:
@@ -203,26 +223,28 @@ void Ghost::chase_pacman()
 
 
 void Ghost::move(){
+
+    int gh_x = static_cast<int>(x());
+    int gh_y = static_cast<int>(y());
+    int __x = (gh_x - game->geo_x) / W;           // block x coordinate in map
+    int __y = (gh_y - game->geo_y) / W;           // block y coordinate in map
+    int x_remainder = (gh_x - game->geo_x) % W;   // remainder x pixel to fit a block
+    int y_remainder = (gh_y - game->geo_y) % W;   // remainder y pixel to fit a block
+
     qDebug ("pacman x, y : %d %d ",game->pacman->get_x(),game->pacman->get_y() );
+    qDebug ("ghost x and y: %d %d ", __x,__y);
+    qDebug ("distance to pacman : %d %d ",game->pacman->get_x()-__x,game->pacman->get_y()-__y);
 
-
-
-        if (status != Running && release_time > 0) {
-            release_time--;
-        } else if (status == Panic) {
-            panic_time--;
-            if (panic_time <= 0) {
-                status = Normal;
-            }
+    if(abs(game->pacman->get_x()-__x) <= abs(game->pacman->get_y()-__y) ){//x direction is closest
+        if(game->pacman->get_x()-__x < 0){ //in neg x direction (left)
+            qDebug("go left dawg");
+            moveleft();
         }
 
+    }
 
-        int gh_x = static_cast<int>(x());
-        int gh_y = static_cast<int>(y());
-        int __x = (gh_x - game->geo_x) / W;           // block x coordinate in map
-        int __y = (gh_y - game->geo_y) / W;           // block y coordinate in map
-        int x_remainder = (gh_x - game->geo_x) % W;   // remainder x pixel to fit a block
-        int y_remainder = (gh_y - game->geo_y) % W;   // remainder y pixel to fit a block
+
+
 
         /* When ghost completely fits a block,
          * decide whether to change direction. */
@@ -230,42 +252,42 @@ void Ghost::move(){
             // update ghost's coordinate in map
             _x = __x;
             _y = __y;
+            is_released = true;
             if (is_released) {
-                /* Chase pacman. */
-                switch (status) {
-                case Normal:
-                    chase_pacman();
+                if(overlapable(_y, _x + 1)){//Right is not a wall
+                    qDebug() << "Going RIGHT?";
+                    __x = __x+1;
+                    _x == __x;
+                }
 
-                    break;
-                case Panic:
-                    //dodge_pacman();
-                    break;
-                default:
-                    break;
-                }
-            } else {
-                if (release_time == 0) {
-                    /* Time to go out the cage. */
-                    //go_out_cage();
-                    if (game->map[_y][_x]->get_type() == Gate) {
-                        // If arriving at gate, turn into release.
-                        is_released = true;
-                    }
-                } else {
-                    if (status == Running) {
-                        if (_x == game->gate->get_x() && _y == game->gate->get_y() + 1) {
-                            status = Normal;
-                        } else {
-                            /* Go back to cage. */
-                            //go_to_cage();
-                        }
-                    } else {
-                        /* Keep staying in the cage. */
-                        //setdir_randomly();
-                    }
-                }
             }
+            qDebug() << "Hm?";
+            /*
+            switch (dir) {
+                case Stop:
+                    break;
+                case Up:
+                    qDebug() << "Going UP";
 
+                    setY(static_cast<int>(y()) - 1);
+                    break;
+                case Down:
+                    qDebug() << "Going DOWN";
+
+                    setY(static_cast<int>(y()) + 1);
+                    break;
+                case Left:
+                    qDebug() << "Going LEFT";
+
+                    setX(static_cast<int>(x()) - 1);
+                    break;
+                case Right:
+                    qDebug() << "Going RIGHT";
+                    setX(static_cast<int>(x()) + 1);
+                    break;
+                }
+
+               */
 
     if (collidesWithItem(game->pacman, Qt::IntersectsItemShape)){
             if (status == Normal) {
