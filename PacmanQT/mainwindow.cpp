@@ -97,7 +97,7 @@ void MainWindow::on_onePlayer_clicked()
     int h = (map_height * GameObject::Width);
 
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/map.txt", false);
+    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level1.txt", false);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
@@ -137,7 +137,7 @@ void MainWindow::on_levelOne_clicked()
     int h = (map_height * GameObject::Width);
 
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/map.txt", false);
+    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level1.txt", false);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
