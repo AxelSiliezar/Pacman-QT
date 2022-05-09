@@ -240,6 +240,10 @@ void Ghost::move(){
             qDebug("go left dawg");
             moveleft();
         }
+        if(game->pacman->get_x()-__x > 0){ //in pos x direction (right)
+            qDebug("go right dawg");
+            moveright();
+        }
 
     }
 
