@@ -27,7 +27,6 @@ class Game : public QGraphicsScene
     Q_OBJECT
 
 public:
-    enum GameStatus {Playing, Win, Lose, Pause};
     int geo_x, geo_y;
     int map_height, map_width;      // game map (20 x 29 in this app)
     Game(int, int, int, int, QString,bool);
@@ -41,17 +40,14 @@ public:
     GameObject ***map;              // the map of pacman game
     GameObject *gate;               // pointer of the gate of cage of ghosts
     Pacman *pacman;
-    PacmanTwo *pacmanTwo;           // pointer of pacman
+    Pacman *pacmanTwo;           // pointer of pacman
       // pointers of ghosts
     Ghost *ghost[Ghost::GhostNum];  // pointers of ghosts
 
     QVector<GameObject*> powerball; // pointers of powerball
-    GameStatus stat;
     bool versus;
 
     friend class Pacman;
-    friend class PacmanTwo;
-
 
 
 private slots:

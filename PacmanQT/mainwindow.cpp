@@ -169,7 +169,6 @@ void MainWindow::on_levelThree_clicked()
     int x = 50, y = 50;                             // x y in mainwindow
     int w = (map_width * GameObject::Width);
     int h = (map_height * GameObject::Width);
-
     ui->graphicsView->setGeometry(x, y, w, h);
     game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level3.txt", false);
     ui->graphicsView->setScene(game);

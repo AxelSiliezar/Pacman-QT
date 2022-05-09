@@ -48,41 +48,15 @@ class Pacman : public GameObject
 public:
     Pacman();
     void move();
-    Game *game;                 // the pacman game object
-
-    friend class Game;
-
-private:
-    void moveup();
-    void movedown();
-    void moveleft();
-    void moveright();
+    Game *game;                 // the pacman game obje
     void eat_ball(int, int);
     bool overlapable(int, int); // check if pacman can go to map[i][j]
 
-    QVector<QPixmap> anim[4];   // animations
-    int anim_index;
+
+friend class Game;
+
 };
-class PacmanTwo : public GameObject
-{
-public:
-    PacmanTwo();
-    void move();
-    Game *game;                 // the pacman game object
 
-    friend class Game;
-
-private:
-    void moveup();
-    void movedown();
-    void moveleft();
-    void moveright();
-    void eat_ball(int, int);
-    bool overlapable(int, int); // check if pacman can go to map[i][j]
-
-    QVector<QPixmap> anim[4];   // animations
-    int anim_index;
-};
 
 /* Ghost */
 class Ghost : public GameObject
@@ -104,17 +78,13 @@ private:
     void moveleft();
     void moveright();
     void chase_pacman();
-    void go_to_cage();
+
     bool overlapable(int, int);                 // check if ghost can go to map[i][j]
 
     Status status;
-    QVector<QPixmap> anim[4];                   // animations
-    QVector<QPixmap> panic_anim;
-    QVector<QPixmap> running_anim;
-    int anim_index;
-    int release_time;           // time to get out the cage
-    bool is_released;
-    int panic_time;
+    QVector<QPixmap> anim[5];                   // animations
+
+
 };
 
 

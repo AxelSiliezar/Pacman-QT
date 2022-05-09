@@ -14,8 +14,7 @@ SOURCES += \
     ghost.cpp \
     main.cpp \
     mainwindow.cpp \
-    pacman.cpp \
-    pacmanTwo.cpp
+    pacman.cpp
 
 HEADERS += \
     game.h \

@@ -14,7 +14,6 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
 
     geo_x = x;
     geo_y = y;
-    stat = Playing;
     versus = twoPlayer;
     /* Initialize map pointers */
     map_size = map_w * map_h;
@@ -41,7 +40,9 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     mapfile.open(QIODevice::ReadOnly|QIODevice::Text);
 
     pacman = new Pacman();
-    pacmanTwo = new PacmanTwo();
+    if(versus){
+    pacmanTwo = new Pacman();
+    }
     for (int i = 0; i < map_h; i++) {
         QByteArray line = mapfile.readLine();
         for (int j = 0; j < map_w; j++) {
@@ -111,31 +112,26 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 ghost[ghostCount] = new Ghost(ghostCount);
                 ghost[ghostCount]->game = this;
                 ghost[ghostCount]->setZValue(2);
-                ghost[ghostCount]->release_time = GHOST_RELEASE_TIME[ghostCount];
                 ghost[ghostCount]->_x = j;
                 ghost[ghostCount]->_y = i;
-                ghost[ghostCount]->set_score(GHOST_SCORE);
                 ghost[ghostCount]->setPos(tmp_x, tmp_y);
                 addItem(ghost[ghostCount]);
                 ghostCount++;
-               // map[i][j] = ghost[ghostCount];
+
             case 'x':
-                pacmanTwo = new PacmanTwo();
+                if(versus){
+                pacmanTwo = new Pacman();
                 pacmanTwo->game = this;
                 pacmanTwo->setZValue(2);
                 pacmanTwo->setPos(tmp_x, tmp_y);
                 addItem(pacmanTwo);
                 map[i][j] = pacmanTwo;
+                }
                 break;
-
-
             }
 
-            //add case to create ghosts
-            if (map[i][j]) {
-                map[i][j]->_x = j;
-                map[i][j]->_y = i;
-            }
+
+
         }
     }
 
@@ -166,11 +162,12 @@ void Game::start()
         pacmanTwo_timer->start(temp);
     }
 
-
+    if(!versus){
     for (int i = 0; i < Ghost::GhostNum; i++) {
         ghost_timer[i] = new QTimer(this);
         connect(ghost_timer[i], &QTimer::timeout, [=](){ghost_handler(i);} );
         ghost_timer[i]->start(NORMAL_INTERVAL);
+    }
     }
 }
 
@@ -184,9 +181,6 @@ void Game::stop()
     }
 
     powerball_flash_timer->stop();
-//    for (int i = 0; i < Ghost::ghostCount; i++) {
-//        ghost_timer[i]->stop();
-//    }
 }
 
 
@@ -213,30 +207,18 @@ void Game::powerball_flash()
 void Game::pacman_handler()
 {
     pacman->move();
-    if (stat == Win) {
-        stop();
-    }
-    if (stat == Lose) {
-        stop();
-    }
+
 }
 void Game::pacmanTwo_handler()
 {
     pacmanTwo->move();
-    if (stat == Win) {
-        stop();
-    }
-    if (stat == Lose) {
-        stop();
-    }
+
 }
 
 void Game::ghost_handler(int ghostCount)
 {
    ghost[ghostCount]->move();
-    if (stat == Lose) {
-       stop();
-    }
+
 }
 
 

@@ -4,32 +4,10 @@
 Pacman::Pacman() : GameObject(
     GameObject::Pacman, QPixmap(":/game_objects/pacman/heppy.png"))
 {
-
     dir = Stop;
     next_dir = Stop;
-    anim_index = 2;
-
 }
 
-void Pacman::moveup()
-{
-    setY(static_cast<int>(y()) - 1);
-}
-
-void Pacman::moveleft()
-{
-    setX(static_cast<int>(x()) - 1);
-}
-
-void Pacman::movedown()
-{
-    setY(static_cast<int>(y()) + 1);
-}
-
-void Pacman::moveright()
-{
-    setX(static_cast<int>(x()) + 1);
-}
 
 
 void Pacman::eat_ball(int __y, int __x)
@@ -68,11 +46,7 @@ void Pacman::eat_ball(int __y, int __x)
 
 bool Pacman::overlapable(int i, int j)
 {
-    if (i < 0 || j < 0) {
-        return false;
-    }
-
-    if (i >= game->map_height || j >= game->map_width) {
+    if ((i < 0 || j < 0) || (i >= game->map_height || j >= game->map_width)) {
         return false;
     }
 
@@ -91,8 +65,8 @@ bool Pacman::overlapable(int i, int j)
 
 void Pacman::move()
 {
-    int pac_x = static_cast<int>(x());
-    int pac_y = static_cast<int>(y());
+    int pac_x = (x());
+    int pac_y = (y());
     int __x = (pac_x - game->geo_x) / W;            // x coordinate in map
     int __y = (pac_y - game->geo_y) / W;            // y coordinate in map
     int x_remainder = (pac_x - game->geo_x) % W;    // remainder x pixel to fit a block
@@ -108,7 +82,7 @@ void Pacman::move()
             _y = __y;
 
             if (game->ball_num == 0) {
-                game->stat = Game::Win;
+               game->stop();
                 return;
             }
         }
@@ -167,7 +141,7 @@ void Pacman::move()
             dir = Stop;
             next_dir = Stop;
         } else {
-            moveup();
+           setY((y()) - 1);
         }
         break;
     case Down:
@@ -175,7 +149,7 @@ void Pacman::move()
             dir = Stop;
             next_dir = Stop;
         } else {
-            movedown();
+            setY((y()) + 1);
         }
         break;
     case Left:
@@ -183,7 +157,7 @@ void Pacman::move()
             dir = Stop;
             next_dir = Stop;
         } else {
-            moveleft();
+            setX((x()) - 1);
         }
         break;
     case Right:
@@ -191,7 +165,7 @@ void Pacman::move()
             dir = Stop;
             next_dir = Stop;
         } else {
-            moveright();
+           setX((x()) + 1);
         }
         break;
     }

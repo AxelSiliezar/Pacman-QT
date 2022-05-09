@@ -6,7 +6,6 @@ PacmanTwo::PacmanTwo() : GameObject(
 {
     dir = Stop;
     next_dir = Stop;
-    anim_index = 2;
 }
 
 void PacmanTwo::moveup()
