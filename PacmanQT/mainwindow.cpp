@@ -223,6 +223,6 @@ void MainWindow::updateBallCount(){
 }
 void MainWindow::on_takeBreak_clicked()
 {
-    QDesktopServices::openUrl(QUrl("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley"));
+    QDesktopServices::openUrl(QUrl("https://www.youtube.com/watch?v=hVr1YI6x-eQ&ab_channel=StudioC"));
 }
 
