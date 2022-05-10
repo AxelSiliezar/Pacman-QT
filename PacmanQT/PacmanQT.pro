@@ -10,7 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     game.cpp \
-    game_object.cpp \
+    gameItem.cpp \
     ghost.cpp \
     main.cpp \
     mainwindow.cpp \
