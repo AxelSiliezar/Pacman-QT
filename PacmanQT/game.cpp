@@ -76,11 +76,10 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                   map[i][j] = new GameItem(GameItem::Ball, wallpix);
                 }else{
                   map[i][j] = new GameItem(GameItem::Ball, ballpix);
-
-                  map[i][j]->setPos(tmp_x, tmp_y);
-                  addItem(map[i][j]);
-                  ball_num++;
                 }
+                map[i][j]->setPos(tmp_x, tmp_y);
+                addItem(map[i][j]);
+                ball_num++;
                 break;
             case '4':
                 map[i][j] = new GameItem(GameItem::PowerBall, powerballpix);
