@@ -12,6 +12,7 @@
 /* Changeable game options */
 #define BALL_SCORE      10          // score of balls
 #define POWERBALL_SCORE 30          // score of powerballs
+#define JURYBOX_SCORE   60
 #define GHOST_SCORE     50          // score of ghosts
 #define INTERVAL        10          // move interval of pacman
 #define VERSUSINTERVAL  6
@@ -27,6 +28,7 @@ class Game : public QGraphicsScene
     Q_OBJECT
 
 public:
+    std::string status = {"win", "lose"};
     int geo_x, geo_y;
     int map_height, map_width;      // game map (20 x 29 in this app)
     Game(int, int, int, int, QString,bool);
@@ -46,6 +48,7 @@ public:
 
     QVector<GameObject*> powerball; // pointers of powerball
     bool versus;
+    std::string stat = status;
 
     friend class Pacman;
 

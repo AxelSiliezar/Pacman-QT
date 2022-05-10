@@ -28,7 +28,7 @@ int GameObject::get_score()
 
 void GameObject::set_score(int s)
 {
-
+    score = s;
 }
 
 void GameObject::set_dir(Dir d)
