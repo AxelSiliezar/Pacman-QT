@@ -17,8 +17,8 @@ SOURCES += \
     pacman.cpp
 
 HEADERS += \
+    GameItem.h \
     game.h \
-    gameobject.h \
     mainwindow.h
 
 FORMS += \

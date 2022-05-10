@@ -52,35 +52,63 @@ void MainWindow::initLabels()
     score_timer->start(25);
     connect(score_timer, SIGNAL(timeout()), this , SLOT(update_score()));
 }
-
 void MainWindow::keyPressEvent(QKeyEvent *e) {
     switch (e->key()) {
     case Qt::Key_W:
-        game->pacman_next_direction(GameObject::Up);
+
+        for (int i = 0; i < 20; i++){
+            game->pacman->move(1);
+        }
+
         break;
     case Qt::Key_A:
-        game->pacman_next_direction(GameObject::Left);
+        for (int i = 0; i < 20; i++){
+            game->pacman->move(2);
+        }
+
         break;
     case Qt::Key_S:
-        game->pacman_next_direction(GameObject::Down);
+        for (int i = 0; i < 20; i++){
+            game->pacman->move(3);
+        }
+
         break;
     case Qt::Key_D:
-        game->pacman_next_direction(GameObject::Right);
+
+        for (int i = 0; i < 20; i++){
+            game->pacman->move(4);
+        }
+
+
         break;
     case Qt::Key_I:
-        game->pacmanTwo_next_direction(GameObject::Up);
+        for (int i = 0; i < 20; i++){
+            game->pacmanTwo->move(1);
+        }
+
         break;
     case Qt::Key_J:
-        game->pacmanTwo_next_direction(GameObject::Left);
+        for (int i = 0; i < 20; i++){
+            game->pacmanTwo->move(2);
+        }
+
         break;
     case Qt::Key_K:
-        game->pacmanTwo_next_direction(GameObject::Down);
+        for (int i = 0; i < 20; i++){
+            game->pacmanTwo->move(3);
+        }
+
         break;
     case Qt::Key_L:
-        game->pacmanTwo_next_direction(GameObject::Right);
+        for (int i = 0; i < 20; i++){
+            game->pacmanTwo->move(4);
+        }
+
         break;
     }
 }
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -91,13 +119,13 @@ void MainWindow::on_onePlayer_clicked()
 
     PlayMusic();
     HideLabels();
-    int map_height = 21, map_width = 33;            // 20x29 game map
+    int height = 21, width = 33;            // 20x29 game map
     int x = 230, y = 50;                             // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
+    int w = (width * GameItem::Width);
+    int h = (height * GameItem::Width);
 
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level1.txt", false);
+    game = new Game(x, y, width, height, ":/game_objects/map_objects/level1.txt", false);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
@@ -116,12 +144,12 @@ void MainWindow::HideLabels(){
 void MainWindow::on_twoPlayer_clicked()
 {
       HideLabels();
-    int map_height = 35, map_width = 35;            // 20x29 game map
+    int height = 35, width = 35;            // 20x29 game map
     int x = 35, y = 35;                             // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
+    int w = (width * GameItem::Width);
+    int h = (height * GameItem::Width);
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/versus.txt",true);
+    game = new Game(x, y, width, height, ":/game_objects/map_objects/versus.txt",true);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
@@ -131,13 +159,13 @@ void MainWindow::on_levelOne_clicked()
 {
      PlayMusic();
       HideLabels();
-    int map_height = 21, map_width = 33;            // 20x29 game map
+    int height = 21, width = 33;            // 20x29 game map
     int x = 400, y = 200;                             // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
+    int w = (width * GameItem::Width);
+    int h = (height * GameItem::Width);
 
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level1.txt", false);
+    game = new Game(x, y, width, height, ":/game_objects/map_objects/level1.txt", false);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
@@ -148,13 +176,13 @@ void MainWindow::on_levelTwo_clicked()
 {
      PlayMusic();
       HideLabels();
-    int map_height = 17, map_width = 55;            // 20x29 game map
+    int height = 17, width = 55;            // 20x29 game map
     int x = 18, y = 68;                       // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
+    int w = (width * GameItem::Width);
+    int h = (height * GameItem::Width);
 
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level2.txt", false);
+    game = new Game(x, y, width, height, ":/game_objects/map_objects/level2.txt", false);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();
@@ -165,12 +193,12 @@ void MainWindow::on_levelThree_clicked()
 {
      PlayMusic();
       HideLabels();
-    int map_height = 24, map_width = 28;            // 20x29 game map
+    int height = 24, width = 28;            // 20x29 game map
     int x = 50, y = 50;                             // x y in mainwindow
-    int w = (map_width * GameObject::Width);
-    int h = (map_height * GameObject::Width);
+    int w = (width * GameItem::Width);
+    int h = (height * GameItem::Width);
     ui->graphicsView->setGeometry(x, y, w, h);
-    game = new Game(x, y, map_width, map_height, ":/game_objects/map_objects/level3.txt", false);
+    game = new Game(x, y, width, height, ":/game_objects/map_objects/level3.txt", false);
     ui->graphicsView->setScene(game);
     initLabels();
     game->start();

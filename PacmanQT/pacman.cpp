@@ -1,32 +1,21 @@
 #include "game.h"
-#define W (GameObject::Width)
+#define W (GameItem::Width)
 
-Pacman::Pacman() : GameObject(
-    GameObject::Pacman, QPixmap(":/game_objects/pacman/heppy.png"))
+Pacman::Pacman() : GameItem(
+    GameItem::Pacman, QPixmap(":/game_objects/pacman/heppy.png"))
 {
-    dir = Stop;
-    next_dir = Stop;
+
 }
 
 
 
 void Pacman::eat_ball(int __y, int __x)
 {
-    GameObject *obj = game->map[__y][__x];
+    GameItem *obj = game->map[__y][__x];
     switch (obj->get_type()) {
     case Ball:
         game->score += obj->get_score();
         game->ball_num--;
-        break;
-    case PowerBall:
-        game->score += obj->get_score();
-        game->ball_num--;
-        for (int i = 0; i < game->powerball.size(); i++) {
-            if (game->powerball.at(i) == obj) {
-                game->powerball.remove(i);
-                break;
-            }
-        }
         break;
     default:
         return;
@@ -34,9 +23,9 @@ void Pacman::eat_ball(int __y, int __x)
 
     QPixmap blankpix;
     if(game->versus){
-        game->map[_y][_x] = new GameObject(GameObject::Wall, blankpix);
+        game->map[_y][_x] = new GameItem(GameItem::Wall, blankpix);
     }else{
-        game->map[_y][_x] = new GameObject(GameObject::Blank, blankpix);
+        game->map[_y][_x] = new GameItem(GameItem::Blank, blankpix);
     }
     game->map[__y][__x] = this;
     delete obj;
@@ -44,8 +33,9 @@ void Pacman::eat_ball(int __y, int __x)
 }
 
 
-bool Pacman::overlapable(int i, int j)
+bool Pacman::wallCollision(int i, int j)
 {
+
     if ((i < 0 || j < 0) || (i >= game->map_height || j >= game->map_width)) {
         return false;
     }
@@ -63,16 +53,64 @@ bool Pacman::overlapable(int i, int j)
 }
 
 
-void Pacman::move()
+void Pacman::move(int temp)
 {
-    int pac_x = (x());
-    int pac_y = (y());
-    int __x = (pac_x - game->geo_x) / W;            // x coordinate in map
-    int __y = (pac_y - game->geo_y) / W;            // y coordinate in map
-    int x_remainder = (pac_x - game->geo_x) % W;    // remainder x pixel to fit a block
-    int y_remainder = (pac_y - game->geo_y) % W;    // remainder y pixel to fit a block
-    Dir next_dir = get_next_dir();
 
+    if(!lost){
+
+
+    int PacmanX = (x());
+    int PacmanY = (y());
+    int __x = (PacmanX - game->map_x) / W;            // x coordinate in map
+    int __y = (PacmanY - game->map_y) / W;            // y coordinate in map
+    int x_remainder = (PacmanX - game->map_x) % W;    // remainder x pixel to fit a block
+    int y_remainder = (PacmanY - game->map_y) % W;    // remainder y pixel to fit a block
+
+
+qDebug() << "X" << x_remainder;
+qDebug() << "Y" << y_remainder;
+
+if (x_remainder == 0 && y_remainder == 0) {
+        _x = __x;
+        _y = __y;
+    }
+
+
+    if(temp == 1){
+
+            if (wallCollision(_y - 1, _x)) {
+                 if(__y >= 1){
+               setY((y()) - 1);
+                 }
+            }
+
+
+    }
+    if(temp == 2){
+
+        if (wallCollision(_y, _x - 1)) {
+           setX((x()) - 1);
+        }
+
+
+
+    }
+    if(temp == 3){
+        if (wallCollision(_y + 1, _x)) {
+            if(__y <= game->map_height){
+           setY((y()) + 1);
+             }
+        }
+
+    }
+    if(temp == 4){
+
+            if (wallCollision(_y, _x + 1)) {
+               setX((x()) + 1);
+            }
+
+
+    }
 
     if (x_remainder == 0) {
         if (y_remainder == 0) {
@@ -86,87 +124,8 @@ void Pacman::move()
                 return;
             }
         }
-
-        switch (next_dir) {
-        case Stop:
-            dir = next_dir;
-            break;
-        case Up:
-            if (overlapable(_y - 1, _x)) {
-                dir = next_dir;
-            }
-            break;
-        case Down:
-            if (overlapable(_y + 1, _x)) {
-                dir = next_dir;
-            }
-            break;
-        case Left:
-            if (y_remainder == 0 && overlapable(_y, _x - 1)) {
-                dir = next_dir;
-            }
-            break;
-        case Right:
-            if (y_remainder == 0 && overlapable(_y, _x + 1)) {
-                dir = next_dir;
-            }
-            break;
-        }
-    } else if (y_remainder == 0) {
-        switch (next_dir) {
-        case Stop:
-            dir = next_dir;
-            break;
-        case Left:
-            if (overlapable(_y, _x - 1)) {
-                dir = next_dir;
-            }
-            break;
-        case Right:
-            if (overlapable(_y, _x + 1)) {
-                dir = next_dir;
-            }
-            break;
-        default:
-            break;
-        }
-    }
-
-
-    switch (dir) {
-    case Stop:
-        break;
-    case Up:
-        if (y_remainder == 0 && !overlapable(_y - 1, _x)) {
-            dir = Stop;
-            next_dir = Stop;
-        } else {
-           setY((y()) - 1);
-        }
-        break;
-    case Down:
-        if (y_remainder == 0 && !overlapable(_y + 1, _x)) {
-            dir = Stop;
-            next_dir = Stop;
-        } else {
-            setY((y()) + 1);
-        }
-        break;
-    case Left:
-        if (x_remainder == 0 && !overlapable(_y, _x - 1)) {
-            dir = Stop;
-            next_dir = Stop;
-        } else {
-            setX((x()) - 1);
-        }
-        break;
-    case Right:
-        if (x_remainder == 0 && !overlapable(_y, _x + 1)) {
-            dir = Stop;
-            next_dir = Stop;
-        } else {
-           setX((x()) + 1);
-        }
-        break;
+}
     }
 }
+
+

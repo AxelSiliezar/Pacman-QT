@@ -26,6 +26,7 @@ public:
     void keyPressEvent(QKeyEvent*) override;
     void PlayMusic();
     void HideLabels();
+    bool held = false;
 private slots:
 
     void on_onePlayer_clicked();
@@ -37,8 +38,6 @@ private slots:
     void on_levelTwo_clicked();
 
     void on_levelThree_clicked();
-
-
 
     void on_takeBreak_clicked();
 

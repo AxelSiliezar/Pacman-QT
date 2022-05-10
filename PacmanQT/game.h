@@ -6,9 +6,10 @@
 #include <QGraphicsItem>
 #include <QTimer>
 #include <QPair>
-#include "gameobject.h"
+#include "GameItem.h"
 
 
+<<<<<<< Updated upstream
 /* Changeable game options */
 #define BALL_SCORE      10          // score of balls
 #define POWERBALL_SCORE 30          // score of powerballs
@@ -21,6 +22,17 @@
 #define RUNNING_INTERVAL 5          // move interval of running ghosts
 #define PANNIC_TIME     1000        // interval number of pannic ghosts
 #define FLASH_INTERVAL 200          // flash interval of powerballs
+=======
+
+#define BALL_SCORE      10
+#define POWERBALL_SCORE 30
+#define GHOST_SCORE     50
+#define NORMAL_INTERVAL 10
+#define PANNIC_INTERVAL 15
+#define RUNNING_INTERVAL 5
+#define PANNIC_TIME     1000
+#define FLASH_INTERVAL 200
+>>>>>>> Stashed changes
 
 /* Game control class */
 class Game : public QGraphicsScene
@@ -28,25 +40,28 @@ class Game : public QGraphicsScene
     Q_OBJECT
 
 public:
+<<<<<<< Updated upstream
     std::string status = {"win", "lose"};
     int geo_x, geo_y;
     int map_height, map_width;      // game map (20 x 29 in this app)
+=======
+    int map_x, map_y;
+    int map_height, map_width;
+>>>>>>> Stashed changes
     Game(int, int, int, int, QString,bool);
     ~Game();
     void start();
     void stop();
-    void pacman_next_direction(GameObject::Dir);
-    void pacmanTwo_next_direction(GameObject::Dir);
     int get_score();
 
-    GameObject ***map;              // the map of pacman game
-    GameObject *gate;               // pointer of the gate of cage of ghosts
+    GameItem ***map;
+    GameItem *gate;
     Pacman *pacman;
-    Pacman *pacmanTwo;           // pointer of pacman
-      // pointers of ghosts
-    Ghost *ghost[Ghost::GhostNum];  // pointers of ghosts
+    Pacman *pacmanTwo;
 
-    QVector<GameObject*> powerball; // pointers of powerball
+    Ghost *ghost[Ghost::GhostNum];
+
+    QVector<GameItem*> powerball;
     bool versus;
     std::string stat = status;
 
@@ -54,24 +69,20 @@ public:
 
 
 private slots:
-    void pacman_handler();
-    void pacmanTwo_handler();
+    void ghostTimer(int);
     void powerball_flash();
-    void ghost_handler(int);
+
 
 private:
-    //int map_height, map_width;      // game map (20 x 29 in this app)
-    int map_size;                   // map_width * map_height
+
+    int map_size;
     int ball_num, eat_num, score;
-                   // geometric coordinate
 
 
-    QTimer *pacman_timer;
-    QTimer *pacmanTwo_timer;
     QTimer *powerball_flash_timer;
     QTimer *ghost_timer[Ghost::GhostNum];
     bool flash_tick;
 
 };
 
-#endif // GAME_H
+#endif

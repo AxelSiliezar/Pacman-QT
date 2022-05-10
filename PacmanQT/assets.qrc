@@ -18,8 +18,6 @@
         <file>wall.png</file>
         <file>level2.txt</file>
         <file>level3.txt</file>
-        <file>level4.txt</file>
-        <file>level5.txt</file>
         <file>yellow.png</file>
         <file>juryboxx.jpeg</file>
     </qresource>

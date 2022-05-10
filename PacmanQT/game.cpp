@@ -2,7 +2,7 @@
 #include <QString>
 #include <QFile>
 #include <QRandomGenerator>
-#define W (GameObject::Width)
+#define W (GameItem::Width)
 
 
 // interval number before ghosts going out the cage
@@ -12,16 +12,16 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     : QGraphicsScene(x, y, W * map_w, W * map_h)
 {
 
-    geo_x = x;
-    geo_y = y;
+    map_x = x;
+    map_y = y;
     versus = twoPlayer;
     /* Initialize map pointers */
     map_size = map_w * map_h;
     map_width = map_w;
     map_height = map_h;
-    map = new GameObject**[map_height];
+    map = new GameItem**[map_height];
     for (int i = 0; i < map_height; i++) {
-        map[i] = new GameObject*[map_width];
+        map[i] = new GameItem*[map_width];
         for (int j = 0; j < map_width; j++)
             map[i][j] = nullptr;
     }
@@ -52,9 +52,9 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
             switch (line[j]) {
             case '1':
                 if(versus){
-                   map[i][j] = new GameObject(GameObject::Wall, redWallpix);
+                   map[i][j] = new GameItem(GameItem::Wall, redWallpix);
                 }else{
-                    map[i][j] = new GameObject(GameObject::Wall, wallpix);
+                    map[i][j] = new GameItem(GameItem::Wall, wallpix);
                 }
 
                 map[i][j]->setPos(tmp_x, tmp_y);
@@ -62,9 +62,9 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 break;
             case 'y':
                 if(versus){
-                   map[i][j] = new GameObject(GameObject::Wall, yellowWallpix);
+                   map[i][j] = new GameItem(GameItem::Wall, yellowWallpix);
                 }else{
-                    map[i][j] = new GameObject(GameObject::Wall, yellowWallpix);
+                    map[i][j] = new GameItem(GameItem::Wall, yellowWallpix);
                 }
 
                 map[i][j]->setPos(tmp_x, tmp_y);
@@ -72,7 +72,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 break;
             case '0':
                 if(versus){
-                  map[i][j] = new GameObject(GameObject::Ball, wallpix);
+                  map[i][j] = new GameItem(GameItem::Ball, wallpix);
                 }else{
                   map[i][j] = new GameObject(GameObject::Ball, ballpix);
                   map[i][j]->set_score(BALL_SCORE);
@@ -93,7 +93,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 }
                 break;
             case '4':
-                map[i][j] = new GameObject(GameObject::PowerBall, powerballpix);
+                map[i][j] = new GameItem(GameItem::PowerBall, powerballpix);
                 map[i][j]->set_score(POWERBALL_SCORE);
                 map[i][j]->setPos(tmp_x, tmp_y);
                 addItem(map[i][j]);
@@ -101,10 +101,10 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 ball_num++;
                 break;
             case '3':
-                map[i][j] = new GameObject(GameObject::Blank, blankpix);
+                map[i][j] = new GameItem(GameItem::Blank, blankpix);
                 break;
             case '2':
-                gate = new GameObject(GameObject::Gate, gatepix);
+                gate = new GameItem(GameItem::Gate, gatepix);
                 gate->_x = j;
                 gate->_y = i;
                 gate->setPos(tmp_x, tmp_y);
@@ -120,7 +120,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 map[i][j] = pacman;
                 break;
             case 'g':
-                map[i][j] = new GameObject(GameObject::Blank, blankpix);
+                map[i][j] = new GameItem(GameItem::Blank, blankpix);
                 ghost[ghostCount] = new Ghost(ghostCount);
                 ghost[ghostCount]->game = this;
                 ghost[ghostCount]->setZValue(2);
@@ -155,29 +155,15 @@ void Game::start()
 {
     int temp = 0;
 
-    if(versus){
-        temp = VERSUSINTERVAL;
-    }else{
-        temp = INTERVAL;
-    }
     powerball_flash_timer = new QTimer(this);
     connect(powerball_flash_timer, SIGNAL(timeout()), this , SLOT(powerball_flash()));
     powerball_flash_timer->start(FLASH_INTERVAL);
 
-    pacman_timer = new QTimer(this);
-    connect(pacman_timer, SIGNAL(timeout()), this , SLOT(pacman_handler()));
-    pacman_timer->start(temp);
-
-    if(versus){
-        pacmanTwo_timer = new QTimer(this);
-        connect(pacmanTwo_timer, SIGNAL(timeout()), this , SLOT(pacmanTwo_handler()));
-        pacmanTwo_timer->start(temp);
-    }
 
     if(!versus){
     for (int i = 0; i < Ghost::GhostNum; i++) {
         ghost_timer[i] = new QTimer(this);
-        connect(ghost_timer[i], &QTimer::timeout, [=](){ghost_handler(i);} );
+        connect(ghost_timer[i], &QTimer::timeout, [=](){ghostTimer(i);} );
         ghost_timer[i]->start(NORMAL_INTERVAL);
     }
     }
@@ -186,13 +172,10 @@ void Game::start()
 
 void Game::stop()
 {
-    pacman_timer->stop();
-
-    if(versus){
-        pacmanTwo_timer->stop();
+    pacman->lost = true;
+    for (int i = 0; i < Ghost::GhostNum; i++) {
+        ghost_timer[i]->stop();
     }
-
-    powerball_flash_timer->stop();
 }
 
 
@@ -223,28 +206,12 @@ void Game::pacman_handler()
         stop();
     }
 
-}
-void Game::pacmanTwo_handler()
+void Game::ghostTimer(int temp)
 {
-    pacmanTwo->move();
+    ghost[temp]->ghostRandomScript();
 
 }
 
-void Game::ghost_handler(int ghostCount)
-{
-   ghost[ghostCount]->move();
-
-}
-
-
-void Game::pacman_next_direction(GameObject::Dir d)
-{
-    pacman->set_next_dir(d);
-}
-void Game::pacmanTwo_next_direction(GameObject::Dir d)
-{
-    pacmanTwo->set_next_dir(d);
-}
 
 int Game::get_score()
 {
@@ -261,8 +228,6 @@ Game::~Game()
         delete[] map[i];
     }
     delete[] map;
-    delete pacman_timer;
-    delete pacmanTwo_timer;
     delete powerball_flash_timer;
     for (int i = 0; i < Ghost::GhostNum; i++) {
         delete ghost_timer[i];
