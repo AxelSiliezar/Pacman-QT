@@ -35,6 +35,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     QPixmap ballpix(":/game_objects/map_objects/dot.png");
     QPixmap powerballpix(":/game_objects/map_objects/power_ball.png");
     QPixmap gatepix(":/game_objects/map_objects/gate.png");
+    QPixmap jurybox(":/game_objects/map_objects/juryboxx.jpeg");
     QPixmap blankpix;
     QFile mapfile(map_src);
     mapfile.open(QIODevice::ReadOnly|QIODevice::Text);
@@ -74,11 +75,22 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                   map[i][j] = new GameObject(GameObject::Ball, wallpix);
                 }else{
                   map[i][j] = new GameObject(GameObject::Ball, ballpix);
+                  map[i][j]->set_score(BALL_SCORE);
+                  map[i][j]->setPos(tmp_x, tmp_y);
+                  addItem(map[i][j]);
+                  ball_num++;
                 }
-                map[i][j]->set_score(BALL_SCORE);
-                map[i][j]->setPos(tmp_x, tmp_y);
-                addItem(map[i][j]);
-                ball_num++;
+                break;
+            case 'j':
+                if(versus){
+                  map[i][j] = new GameObject(GameObject::Ball, wallpix);
+                }else{
+                  map[i][j] = new GameObject(GameObject::Ball, jurybox);
+                  map[i][j]->set_score(JURYBOX_SCORE);
+                  map[i][j]->setPos(tmp_x, tmp_y);
+                  addItem(map[i][j]);
+                  ball_num++;
+                }
                 break;
             case '4':
                 map[i][j] = new GameObject(GameObject::PowerBall, powerballpix);
@@ -207,6 +219,9 @@ void Game::powerball_flash()
 void Game::pacman_handler()
 {
     pacman->move();
+    if (stat == "win") {
+        stop();
+    }
 
 }
 void Game::pacmanTwo_handler()

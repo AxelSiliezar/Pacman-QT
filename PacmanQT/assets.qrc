@@ -21,6 +21,7 @@
         <file>level4.txt</file>
         <file>level5.txt</file>
         <file>yellow.png</file>
+        <file>juryboxx.jpeg</file>
     </qresource>
     <qresource prefix="/game_objects/pacman">
         <file>heppy.png</file>
