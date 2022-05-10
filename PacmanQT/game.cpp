@@ -3,11 +3,11 @@
 #include <QFile>
 #include <QRandomGenerator>
 #define W (GameItem::Width)
-
+#include "mainwindow.h"
 
 // interval number before ghosts going out the cage
 int GHOST_RELEASE_TIME[] = {0, 200, 400, 600};
-
+class MainWindow;
 Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     : QGraphicsScene(x, y, W * map_w, W * map_h)
 {
@@ -35,7 +35,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     QPixmap ballpix(":/game_objects/map_objects/dot.png");
     QPixmap powerballpix(":/game_objects/map_objects/power_ball.png");
     QPixmap gatepix(":/game_objects/map_objects/gate.png");
-    QPixmap jurybox(":/game_objects/map_objects/juryboxx.jpeg");
+    QPixmap jurybox(":/game_objects/map_objects/redWall.png");
     QPixmap blankpix;
     QFile mapfile(map_src);
     mapfile.open(QIODevice::ReadOnly|QIODevice::Text);
@@ -44,6 +44,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     if(versus){
     pacmanTwo = new Pacman();
     }
+    qDebug() << versus;
     for (int i = 0; i < map_h; i++) {
         QByteArray line = mapfile.readLine();
         for (int j = 0; j < map_w; j++) {
@@ -74,19 +75,8 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 if(versus){
                   map[i][j] = new GameItem(GameItem::Ball, wallpix);
                 }else{
-                  map[i][j] = new GameObject(GameObject::Ball, ballpix);
-                  map[i][j]->set_score(BALL_SCORE);
-                  map[i][j]->setPos(tmp_x, tmp_y);
-                  addItem(map[i][j]);
-                  ball_num++;
-                }
-                break;
-            case 'j':
-                if(versus){
-                  map[i][j] = new GameObject(GameObject::Ball, wallpix);
-                }else{
-                  map[i][j] = new GameObject(GameObject::Ball, jurybox);
-                  map[i][j]->set_score(JURYBOX_SCORE);
+                  map[i][j] = new GameItem(GameItem::Ball, ballpix);
+
                   map[i][j]->setPos(tmp_x, tmp_y);
                   addItem(map[i][j]);
                   ball_num++;
@@ -94,7 +84,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 break;
             case '4':
                 map[i][j] = new GameItem(GameItem::PowerBall, powerballpix);
-                map[i][j]->set_score(POWERBALL_SCORE);
+
                 map[i][j]->setPos(tmp_x, tmp_y);
                 addItem(map[i][j]);
                 powerball.push_back(map[i][j]);
@@ -129,7 +119,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 ghost[ghostCount]->setPos(tmp_x, tmp_y);
                 addItem(ghost[ghostCount]);
                 ghostCount++;
-
+                break;
             case 'x':
                 if(versus){
                 pacmanTwo = new Pacman();
@@ -199,12 +189,7 @@ void Game::powerball_flash()
     }
 }
 
-void Game::pacman_handler()
-{
-    pacman->move();
-    if (stat == "win") {
-        stop();
-    }
+
 
 void Game::ghostTimer(int temp)
 {

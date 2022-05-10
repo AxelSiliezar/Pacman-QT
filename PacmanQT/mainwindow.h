@@ -26,7 +26,10 @@ public:
     void keyPressEvent(QKeyEvent*) override;
     void PlayMusic();
     void HideLabels();
+    void ShowLabels();
     bool held = false;
+
+
 private slots:
 
     void on_onePlayer_clicked();
@@ -40,12 +43,11 @@ private slots:
     void on_levelThree_clicked();
 
     void on_takeBreak_clicked();
+    void updateBallCount();
 
 private:
     Ui::MainWindow *ui;
-    QLabel *score_title, *score;
-    QLabel *win_label, *lose_label;
-    QTimer *score_timer;
+    QTimer *scoreTimer;
     Game *game;
 };
 #endif // MAINWINDOW_H

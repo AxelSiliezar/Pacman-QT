@@ -21,15 +21,6 @@ int GameItem::get_y()
     return _y;
 }
 
-int GameItem::get_score()
-{
-    return score;
-}
-
-void GameItem::set_score(int s)
-{
-    score = s;
-}
 
 
 GameItem::~GameItem()

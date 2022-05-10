@@ -19,7 +19,7 @@
         <file>level2.txt</file>
         <file>level3.txt</file>
         <file>yellow.png</file>
-        <file>juryboxx.jpeg</file>
+        <file>power_ball.png</file>
     </qresource>
     <qresource prefix="/game_objects/pacman">
         <file>heppy.png</file>

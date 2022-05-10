@@ -154,6 +154,44 @@
      <string notr="true">border-image:url(:/ui/Screen_Shot_2022-05-07_at_9.28.44_PM.png)</string>
     </property>
    </widget>
+   <widget class="QLabel" name="scoreLabel">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>10</y>
+      <width>101</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Points Left:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="score">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>10</y>
+      <width>58</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
    <zorder>graphicsView</zorder>
    <zorder>twoPlayer</zorder>
    <zorder>label</zorder>
@@ -163,6 +201,8 @@
    <zorder>levelThree</zorder>
    <zorder>takeBreak</zorder>
    <zorder>graphicsView_2</zorder>
+   <zorder>scoreLabel</zorder>
+   <zorder>score</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -170,7 +210,7 @@
      <x>0</x>
      <y>0</y>
      <width>1144</width>
-     <height>22</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

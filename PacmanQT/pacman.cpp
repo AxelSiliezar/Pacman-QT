@@ -6,16 +6,21 @@ Pacman::Pacman() : GameItem(
 {
 
 }
-
-
-
 void Pacman::eat_ball(int __y, int __x)
 {
     GameItem *obj = game->map[__y][__x];
     switch (obj->get_type()) {
     case Ball:
-        game->score += obj->get_score();
         game->ball_num--;
+        break;
+    case PowerBall:
+        game->ball_num--;
+        for (int i = 0; i < game->powerball.size(); i++) {
+            if (game->powerball.at(i) == obj) {
+                game->powerball.remove(i);
+                break;
+            }
+        }
         break;
     default:
         return;
@@ -65,10 +70,6 @@ void Pacman::move(int temp)
     int __y = (PacmanY - game->map_y) / W;            // y coordinate in map
     int x_remainder = (PacmanX - game->map_x) % W;    // remainder x pixel to fit a block
     int y_remainder = (PacmanY - game->map_y) % W;    // remainder y pixel to fit a block
-
-
-qDebug() << "X" << x_remainder;
-qDebug() << "Y" << y_remainder;
 
 if (x_remainder == 0 && y_remainder == 0) {
         _x = __x;

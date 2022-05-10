@@ -8,11 +8,11 @@
 #include <QVector>
 
 
-/* Predefine the game object */
+
 class Game;
 
 
-/* Base class of ghosts, pacman */
+
 class GameItem : public QGraphicsPixmapItem
 {
 public:
@@ -24,15 +24,13 @@ public:
     ObjectType get_type();
     int get_x();
     int get_y();
-    int get_score();
-    void set_score(int);
+
 
     friend class Game;
     friend class Ghost;
 
 protected:
     int _x, _y;
-
     ObjectType type;
     int score;
 };
@@ -47,7 +45,6 @@ public:
     void eat_ball(int, int);
     bool wallCollision(int, int);
 
-
 friend class Game;
 
 };
@@ -59,17 +56,13 @@ public:
     int last = 0;
     const static int GhostNum = 4;
     Game *game;
-
     Ghost(int);
     void ghostRandomScript();
-
     bool wallCollision(int, int);
-
     friend class Game;
     friend class Pacman;
 
 };
-
 
 
 #endif
