@@ -18,7 +18,6 @@
 #define PANNIC_TIME     1000
 #define FLASH_INTERVAL 200
 
-/* Game control class */
 class Game : public QGraphicsScene
 {
     Q_OBJECT
@@ -27,7 +26,7 @@ public:
 
     int map_x, map_y;
     int map_height, map_width;
-    int ball_num;
+    int ballsLeft;
     Game(int, int, int, int, QString,bool);
     ~Game();
     void start();

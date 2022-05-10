@@ -30,10 +30,10 @@ Ghost::Ghost(int comp) : GameItem( GameItem::Ghost, QPixmap())
 void Ghost::ghostRandomScript(){
     int gh_x = (x());
     int gh_y = (y());
-    int ghostX = (gh_x - game->map_x) / W;           // block x coordinate in map
-    int ghostY = (gh_y - game->map_y) / W;           // block y coordinate in map
-    int xDiff = (gh_x - game->map_x) % W;   // remainder x pixel to fit a block
-    int yDiff = (gh_y - game->map_y) % W;   // remainder y pixel to fit a block
+    int ghostX = (gh_x - game->map_x) / W;
+    int ghostY = (gh_y - game->map_y) / W;
+    int xDiff = (gh_x - game->map_x) % W;
+    int yDiff = (gh_y - game->map_y) % W;
 
     if (xDiff == 0 && yDiff == 0) {
             _x = ghostX;

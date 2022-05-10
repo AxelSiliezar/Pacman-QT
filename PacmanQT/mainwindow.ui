@@ -192,6 +192,82 @@
      <string>0</string>
     </property>
    </widget>
+   <widget class="QLabel" name="playerOneScore">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>30</y>
+      <width>58</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="playerOne">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>30</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Points Grabbed:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="playerTwo">
+    <property name="geometry">
+     <rect>
+      <x>540</x>
+      <y>30</y>
+      <width>151</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Points Grabbed:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="playerTwoScore">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>30</y>
+      <width>58</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>0</string>
+    </property>
+   </widget>
    <zorder>graphicsView</zorder>
    <zorder>twoPlayer</zorder>
    <zorder>label</zorder>
@@ -203,6 +279,10 @@
    <zorder>graphicsView_2</zorder>
    <zorder>scoreLabel</zorder>
    <zorder>score</zorder>
+   <zorder>playerOneScore</zorder>
+   <zorder>playerOne</zorder>
+   <zorder>playerTwo</zorder>
+   <zorder>playerTwoScore</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

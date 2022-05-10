@@ -15,7 +15,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
     map_x = x;
     map_y = y;
     versus = twoPlayer;
-    /* Initialize map pointers */
+
     map_size = map_w * map_h;
     map_width = map_w;
     map_height = map_h;
@@ -26,8 +26,8 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
             map[i][j] = nullptr;
     }
 
-    /* Initialize map graphics */
-    ball_num = eat_num = score = 0;
+
+    ballsLeft = eat_num = score = 0;
     int ghostCount = 0;
     QPixmap wallpix(":/game_objects/map_objects/wall.png");
     QPixmap redWallpix(":/game_objects/map_objects/redWall.png");
@@ -52,12 +52,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
             int tmp_y = y + (i * W);
             switch (line[j]) {
             case '1':
-                if(versus){
-                   map[i][j] = new GameItem(GameItem::Wall, redWallpix);
-                }else{
                     map[i][j] = new GameItem(GameItem::Wall, wallpix);
-                }
-
                 map[i][j]->setPos(tmp_x, tmp_y);
                 addItem(map[i][j]);
                 break;
@@ -72,22 +67,17 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 addItem(map[i][j]);
                 break;
             case '0':
-                if(versus){
-                  map[i][j] = new GameItem(GameItem::Ball, wallpix);
-                }else{
-                  map[i][j] = new GameItem(GameItem::Ball, ballpix);
-                }
+                map[i][j] = new GameItem(GameItem::Ball, ballpix);
                 map[i][j]->setPos(tmp_x, tmp_y);
                 addItem(map[i][j]);
-                ball_num++;
+                ballsLeft++;
                 break;
             case '4':
                 map[i][j] = new GameItem(GameItem::PowerBall, powerballpix);
-
                 map[i][j]->setPos(tmp_x, tmp_y);
                 addItem(map[i][j]);
                 powerball.push_back(map[i][j]);
-                ball_num++;
+                ballsLeft++;
                 break;
             case '3':
                 map[i][j] = new GameItem(GameItem::Blank, blankpix);
@@ -109,6 +99,8 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 map[i][j] = pacman;
                 break;
             case 'g':
+                if(!versus){
+
                 map[i][j] = new GameItem(GameItem::Blank, blankpix);
                 ghost[ghostCount] = new Ghost(ghostCount);
                 ghost[ghostCount]->game = this;
@@ -118,6 +110,7 @@ Game::Game(int x, int y, int map_w, int map_h, QString map_src, bool twoPlayer)
                 ghost[ghostCount]->setPos(tmp_x, tmp_y);
                 addItem(ghost[ghostCount]);
                 ghostCount++;
+                }
                 break;
             case 'x':
                 if(versus){
@@ -162,8 +155,10 @@ void Game::start()
 void Game::stop()
 {
     pacman->lost = true;
+    if(!versus){
     for (int i = 0; i < Ghost::GhostNum; i++) {
         ghost_timer[i]->stop();
+    }
     }
 }
 
@@ -192,8 +187,11 @@ void Game::powerball_flash()
 
 void Game::ghostTimer(int temp)
 {
-    ghost[temp]->ghostRandomScript();
+    if(!versus){
 
+
+    ghost[temp]->ghostRandomScript();
+}
 }
 
 
@@ -213,7 +211,11 @@ Game::~Game()
     }
     delete[] map;
     delete powerball_flash_timer;
+    if(!versus){
+
+
     for (int i = 0; i < Ghost::GhostNum; i++) {
         delete ghost_timer[i];
+    }
     }
 }

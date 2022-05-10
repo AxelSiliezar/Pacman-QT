@@ -11,10 +11,11 @@ void Pacman::eat_ball(int __y, int __x)
     GameItem *obj = game->map[__y][__x];
     switch (obj->get_type()) {
     case Ball:
-        game->ball_num--;
+        game->ballsLeft--;
+        pointsGrabbed++;
         break;
     case PowerBall:
-        game->ball_num--;
+        game->ballsLeft--;
         for (int i = 0; i < game->powerball.size(); i++) {
             if (game->powerball.at(i) == obj) {
                 game->powerball.remove(i);
@@ -47,9 +48,6 @@ bool Pacman::wallCollision(int i, int j)
 
     switch (game->map[i][j]->get_type()) {
     case Wall:
-        if(game->versus){
-           game->stop();
-        }
     case Gate:
         return false;
     default:
@@ -66,10 +64,10 @@ void Pacman::move(int temp)
 
     int PacmanX = (x());
     int PacmanY = (y());
-    int __x = (PacmanX - game->map_x) / W;            // x coordinate in map
-    int __y = (PacmanY - game->map_y) / W;            // y coordinate in map
-    int x_remainder = (PacmanX - game->map_x) % W;    // remainder x pixel to fit a block
-    int y_remainder = (PacmanY - game->map_y) % W;    // remainder y pixel to fit a block
+    int __x = (PacmanX - game->map_x) / W;
+    int __y = (PacmanY - game->map_y) / W;
+    int x_remainder = (PacmanX - game->map_x) % W;
+    int y_remainder = (PacmanY - game->map_y) % W;
 
 if (x_remainder == 0 && y_remainder == 0) {
         _x = __x;
@@ -115,15 +113,9 @@ if (x_remainder == 0 && y_remainder == 0) {
 
     if (x_remainder == 0) {
         if (y_remainder == 0) {
-
             eat_ball(__y, __x);
             _x = __x;
             _y = __y;
-
-            if (game->ball_num == 0) {
-               game->stop();
-                return;
-            }
         }
 }
     }

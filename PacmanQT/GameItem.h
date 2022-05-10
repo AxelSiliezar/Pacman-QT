@@ -34,11 +34,12 @@ protected:
     ObjectType type;
     int score;
 };
-/* Pacman */
+
 class Pacman : public GameItem
 {
 public:
     bool lost = false;
+    int pointsGrabbed = 0;
     Pacman();
     void move(int);
     Game *game;

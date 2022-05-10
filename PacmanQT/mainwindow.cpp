@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowTitle(tr("pac-man"));
+    setWindowTitle(tr("CSE 165: Pacman"));
 
     ui->graphicsView->setStyleSheet("QGraphicsView {border: none;}");
     ui->graphicsView->setBackgroundBrush(Qt::black);
@@ -14,6 +14,12 @@ MainWindow::MainWindow(QWidget *parent)
 
      ui->scoreLabel->setVisible(false);
       ui->score->setVisible(false);
+
+      ui->playerOne->setVisible(false);
+       ui->playerOneScore->setVisible(false);
+
+       ui->playerTwo->setVisible(false);
+        ui->playerTwoScore->setVisible(false);
 }
 
 void MainWindow::PlayMusic(){
@@ -25,7 +31,7 @@ void MainWindow::PlayMusic(){
     audioOutput->setVolume(50);
     player->play();
 }
-/* Initialize UI */
+
 
 void MainWindow::keyPressEvent(QKeyEvent *e) {
     if(game->pacman->lost == true){
@@ -141,9 +147,16 @@ void MainWindow::ShowLabels(){
 
 void MainWindow::on_twoPlayer_clicked()
 {
+
+    ui->playerOne->setVisible(true);
+     ui->playerOneScore->setVisible(true);
+
+     ui->playerTwo->setVisible(true);
+      ui->playerTwoScore->setVisible(true);
+
       HideLabels();
-    int height = 35, width = 35;
-    int x = 35, y = 35;
+      int height = 21, width = 33;
+      int x = 230, y = 50;
     int w = (width * GameItem::Width);
     int h = (height * GameItem::Width);
     ui->graphicsView->setGeometry(x, y, w, h);
@@ -202,8 +215,11 @@ void MainWindow::on_levelThree_clicked()
 }
 
 void MainWindow::updateBallCount(){
-    ui->score->setText(QString::number(game->ball_num));
-
+    ui->score->setText(QString::number(game->ballsLeft));
+    if(game->versus){
+        ui->playerOneScore->setText(QString::number(game->pacman->pointsGrabbed));
+        ui->playerTwoScore->setText(QString::number(game->pacmanTwo->pointsGrabbed));
+    }
 }
 void MainWindow::on_takeBreak_clicked()
 {
